@@ -3,3 +3,4 @@ settings.py
 *.json
 *~
 db/db*
+Procfile
