@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}GameDetails{% endblock %}
+{% block content %}
+
+<script>
+	$( document ).ready(function() {
+	$("#gamedetails").attr('class', 'current');
+	});
+</script>
+
+<div id="container">
+			
+<div id="contentsptnosidebar">
+{% for gd in gd_list %}
+	{% ifchanged gd.seasonnumber %}
+		{% if not forloop.first %}
+			</table>
+		{% endif %}
+		<h3> Season {{ gd.seasonyear }} - {{ gd.seasonnumber }}</h3>
+		<table id="tabledg">
+		<tr>
+			<th id="thdg">Game Date</th>
+			<th id="thdg">Game Number</th>
+			<th id="thdg">Final Season Game?</th>
+			<th id="thdg">First Name</th>
+			<th id="thdg">SPT Member?</th>
+			<th id="thdg">Placement</th>
+			<th id="thdg">Points</th>
+			<th id="thdg">Payout</th>
+			<th id="thdg">Buy-In Amount</th>
+		</tr>
+
+	{% endifchanged %}
+	
+	{% ifchanged gd.gamedate %}
+		<tr id="trbg1">
+		 	<td colspan="9">&nbsp;</td> 
+		</tr>
+		<tr id="trbg2">
+	{% else %}
+		<tr id="trbg2">
+	{% endifchanged %}
+	{% if gd.gamenumber == '1' %}
+       		<td id="tddg"> {{ gd.gamedate }} </td>
+        	<td id="tddg"> {{ gd.gamenumber }} </td>
+        	<td id="tddg"> {{ gd.finalseasongame }} </td>
+        	<td id="tddg"> {{ gd.firstname }} </td>
+        	<td id="tddg"> {{ gd.sptmember }} </td>
+        	<td id="tddg"> {{ gd.placement }} </td>
+        	<td id="tddg"> {{ gd.point }} </td>
+        	<td id="tddg"> ${{ gd.payout }} </td>
+        	<td id="tddg"> ${{ gd.buyinamount }} </td>
+	{% else %}
+ 		<td id="tddg2"> {{ gd.gamedate }} </td>
+                <td id="tddg2"> {{ gd.gamenumber }} </td>
+                <td id="tddg2"> {{ gd.finalseasongame }} </td>
+                <td id="tddg2"> {{ gd.firstname }} </td>
+                <td id="tddg2"> {{ gd.sptmember }} </td>
+                <td id="tddg2"> {{ gd.placement }} </td>
+                <td id="tddg2"> {{ gd.point }} </td>
+                <td id="tddg2"> ${{ gd.payout }} </td>
+                <td id="tddg2"> ${{ gd.buyinamount }} </td>
+	{% endif %}
+	</tr>
+{% endfor %}
+</table>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta httq-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SPT: {% block title %}{% endblock %}</title></head>
+<link href="{{STATIC_URL}}style.css" rel="stylesheet" type="text/css" />
+<link href="{{STATIC_URL}}menu.css" rel="stylesheet" type="text/css" />
+<script src="{{STATIC_URL}}jquery.js"></script>
+<body>
+<div id="wrap">
+<div id="masthead">
+<h1>Schtewit Poker Tour</h1> 
+<div id="topnav">
+<a href="{% url 'admin:index' %}">Admin Login</a>
+</div>
+</div>
+	<div id="menucontainer">		
+	<div id="menu">
+	<ul>
+	<li><a id="home" href="{% url 'index' %}" title="">Home</a></li>
+ 	<li><a id="gamedetails" href="gamedetails" title="">Game Details</a></li>
+	<li><a id="profitloss" href="profitloss" title="">Profit/Loss</a></li>
+	<li><a id="pastsptwinners" href="{% url 'pastsptwinners' %}" title="">SPT Season Winners</a></li>
+	</ul>
+	</div>
+	</div>
+<!-- <div class="content"> -->
+{% block content %}{% endblock %}
+<!-- </div> -->
+<div id="footer">Developed By: Arlindo Santos <a href="http://www.arlindo.ca" title="">arlindo.ca</a></div>
+</div>
+</div>
+<script>
+	//handle the dam footer
+	x = $(document).height();
+	y = $(window).height();
+	if (x<=y){ 
+		$('#footer').css({width:'770px',position:'absolute',bottom:0});
+	}
+</script>
+
+</body>
+</html>

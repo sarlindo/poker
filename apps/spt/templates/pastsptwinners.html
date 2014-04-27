@@ -1,0 +1,28 @@
+{% extends 'base.html' %}lert($(window).height());   // returns height of browser viewpor
+{% block title %}PastSPTWinners{% endblock %}
+{% block content %}
+<script>
+	$( document ).ready(function() {
+	$("#pastsptwinners").attr('class', 'current');
+	});
+</script>
+<div id="container">
+			
+<div id="contentsptnosidebar">
+
+<h3>Past SPT season winners</h3>
+<table id="tabledg">
+<tr>
+    <th id="thdg">Season</th>
+    <th id="thdg">SPT Final Table Winner</th>
+ </tr>
+{% for psw in psw_list %}
+	<tr id="trdg">	 
+        	<td id="tddg"> {{ psw.seasonnumber }} </td>
+        	<td id="tddg"> {{ psw.seasonwinner }} </td> 
+	</tr>
+{% endfor %}
+</table>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+body{background:#fdfdfd;font-family:'Open Sans','Lucida Grande',Arial,sans-serif;}
+#header{
+    background: #fbfbfb; 
+    background: linear-gradient(to bottom,  #fdfdfd 25%,#ececec 100%);
+    border-bottom: 1px solid #b2b2b2;
+}
+#header, #branding h1{color:#181818;}
+#header a:link, #header a:visited{text-decoration:none;color:#1B9EE0;}
+#header a:hover{text-decoration:none;color:#0E8FCF;}
+div.module{border-radius: 3px;}
+
+ul.messagelist li {
+    background: #dcffd5 url(../img/icon_success.gif) 5px .3em no-repeat;
+}
+
+ul.messagelist li.warning{
+    background: #ffc url(../img/icon_alert.gif) 5px .3em no-repeat;
+}
+
+ul.messagelist li.error{
+    background: #fff5f4 url(../img/icon_error.gif) 5px .3em no-repeat;
+}
+
+.errornote{
+    border: 1px solid #dd2222;
+    color: #dd1111;
+    background: #fff5f4 url(../img/icon_error.gif) 5px .3em no-repeat;
+}
+
+ul.errorlist{
+    border: 1px solid #cc1111;
+    color: #ffffff;
+    background: #dd1111 url(../img/icon_alert.gif) 5px .3em no-repeat;
+}
+
+ul.errorlist li{
+    background: transparent;
+    border: none;
+    margin: 3px 0 0 0;
+}
+
+ul.errorlist li:first-child{
+    margin-top: 0;
+}
+
+.errors, .form-row.errors{
+    background: #fff5f4;
+}
+
+.errors input, .errors select, .errors textarea {
+    border: 1px solid #dd1111;
+}

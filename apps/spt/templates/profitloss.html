@@ -1,0 +1,33 @@
+{% extends 'base.html' %}lert($(window).height());   // returns height of browser viewpor
+{% block title %}ProfitLoss{% endblock %}
+{% block content %}
+<script>
+	$( document ).ready(function() {
+	$("#profitloss").attr('class', 'current');
+	});
+</script>
+<div id="container">
+			
+<div id="contentsptnosidebar">
+{% for pl in pl_list %}
+	{% ifchanged pl.seasonnumber %}
+		{% if not forloop.first %}
+			</table>
+		{% endif %}
+		<h3> Season {{ pl.seasonnumber }}</h3>
+		<table id="tabledg">
+  			<tr id="trdg">
+    				<th id="thdg">First Name</th>
+    				<th id="thdg">Profit</th>
+  			</tr>
+	{% endifchanged %}
+	<tr id="trdg">
+       		<td id="tddg"> {{ pl.firstname }} </td>
+       		<td id="tddg"> ${{ pl.profit }} </td>
+	</tr>
+{% endfor %}
+</table>
+
+</div>
+</div>
+{% endblock %}

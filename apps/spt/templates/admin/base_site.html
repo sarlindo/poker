@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'SPT Admin' %} | {{ title }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="/admin">{% trans 'SPT Admin' %}</a></h1>
+{% if request.session.last_site_url %}
+<h1 id="site-name"><a href='{{ request.session.last_site_url }}'>SPT Site</a></h1>
+{% endif %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
