@@ -18,8 +18,8 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        gm.finalseasongame = false and
-                        gp.sptmember = true
+                        cast(gm.finalseasongame as int) = 0 and
+                        cast(gp.sptmember as int) = 1
                         group by pl.firstname
                         order by points desc
                         """))
@@ -33,18 +33,18 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
-                        gm.finalseasongame = false and
-                        gp.sptmember = true
+                        cast(gm.finalseasongame as int) = 0 and
+                        cast(gp.sptmember as int) = 1
                         group by pl.firstname
                         order by points desc
                         """))
 	currentpoolamount_list = list(query_to_dicts("""
                         select
-			'10' as poolamount,
-                        '10' as poolamountadjusted,
-                        '10' as firstplaceamount,
-                        '10' as secondplaceamount,
-                        '10' as thirdplaceamount,
+			(count(*) * 10) as poolamount,
+                        (count(*) * 10 - plpa.buyintotal) as poolamountadjusted,
+                        ((count(*) * 10 - plpa.buyintotal) * .50) as firstplaceamount,
+                        ((count(*) * 10 - plpa.buyintotal) * .30) as secondplaceamount,
+                        ((count(*) * 10 - plpa.buyintotal) * .20) as thirdplaceamount,
 			plpa.buyintotal,
 			plpa.plleader
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se,
@@ -52,15 +52,15 @@ def index(request):
                         pl.firstname as plleader,
                         se.seasonnumber,
                         sum(gp.point) as points,
-                        '10' as buyintotal
+                        (count(*) * 10) as buyintotal
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
 			pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        gm.finalseasongame = false and
-                        gp.sptmember = true
+                        cast(gm.finalseasongame as int) = 0 and
+                        cast(gp.sptmember as int) = 1
                         group by pl.firstname,se.seasonnumber
                         order by points desc limit 1) plpa               
 			where
@@ -68,16 +68,16 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        gm.finalseasongame = false and
-                        gp.sptmember = true
+                        cast(gm.finalseasongame as int) = 0 and
+                        cast(gp.sptmember as int) = 1
                         """))
 	previousseasonpoolamount_list = list(query_to_dicts("""
                         select
- 			'10' as poolamount,
-                        '10' as poolamountadjusted,
-                        '10' as firstplaceamount,
-                        '10' as secondplaceamount,
-                        '10' as thirdplaceamount,
+                        (count(*) * 10) as poolamount,
+                        (count(*) * 10 - plpa.buyintotal) as poolamountadjusted,
+                        ((count(*) * 10 - plpa.buyintotal) * .50) as firstplaceamount,
+                        ((count(*) * 10 - plpa.buyintotal) * .30) as secondplaceamount,
+                        ((count(*) * 10 - plpa.buyintotal) * .20) as thirdplaceamount,
                         plpa.buyintotal,
 			plpa.plleader
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se,
@@ -85,15 +85,15 @@ def index(request):
                         pl.firstname as plleader,
                         se.seasonnumber,
                         sum(gp.point) as points,
-                        '10' as buyintotal
+                        (count(*) * 10) as buyintotal
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
-                        gm.finalseasongame = false and
-                        gp.sptmember = true
+                        cast(gm.finalseasongame as int) = 0 and
+                        cast(gp.sptmember as int) = 1
                         group by pl.firstname,se.seasonnumber
                         order by points desc limit 1) plpa
                         where
@@ -101,18 +101,18 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
-                        gm.finalseasongame = false and
-                        gp.sptmember = true
+                        cast(gm.finalseasongame as int) = 0 and
+                        cast(gp.sptmember as int) = 1
                         """))
 	currentgame_list = list(query_to_dicts("""
 			select
                         (count(*) / 2) as numberofgames,
-			'1' as seasonnumber
+			gm.seasons_id as seasonnumber
                         from spt_game gm, spt_season se
                         where
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        gm.finalseasongame = false
+                        cast(gm.finalseasongame as int) = 0
                         """))
 	newsflash_list = list(query_to_dicts("""
                         select newsflash
@@ -139,8 +139,8 @@ def pastsptwinners(request):
 			pl.firstname = gp.players_id and 
 			gp.games_id=gm.id and
 			gm.seasons_id=se.seasonnumber and
-			gm.finalseasongame = true and
-			gp.placement = '1'
+			gm.finalseasongame = 1 and
+			gp.placement = 1
 			group by pl.firstname,se.seasonnumber order by se.seasonnumber desc                     
                         """))
 
@@ -155,10 +155,10 @@ def gamedetails(request):
 			gm.gamedate,
 			gm.gamenumber, 
 			gp.point,
-			CASE WHEN gp.placement = '0' THEN ' ' ELSE gp.placement END as placement,
+			CASE WHEN gp.placement = 0 THEN ' ' ELSE gp.placement END as placement,
 			gp.payout,
-			CASE WHEN gp.sptmember <> false THEN 'Yes' ELSE 'No' END As sptmember,
-			CASE WHEN gm.finalseasongame <> false THEN 'Yes' ELSE 'No' END As finalseasongame,
+			CASE WHEN cast(gp.sptmember as int) <> 0 THEN 'Yes' ELSE 'No' END As sptmember,
+			CASE WHEN cast(gm.finalseasongame as int) <> 0 THEN 'Yes' ELSE 'No' END As finalseasongame,
 			se.seasonnumber,
 			se.seasonyear
 			from spt_player pl, spt_play gp, spt_game gm, spt_season se
@@ -166,7 +166,7 @@ def gamedetails(request):
 			pl.firstname = gp.players_id and 
 			gp.games_id=gm.id and
 			gm.seasons_id=se.seasonnumber
-			order by se.seasonnumber desc, gm.gamedate desc, gm.gamenumber, cast(replace(gp.placement, '0', '9') as integer) 
+			order by se.seasonnumber desc, gm.gamedate desc, gm.gamenumber, cast(replace(gp.placement, '0', '9') as unsigned) 
 			"""))
         return render(request,'gamedetails.html',
                         {'gd_list' : gd_list})
