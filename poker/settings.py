@@ -95,6 +95,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 # Static asset configuration
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 PROJECT_DIR = os.path.join(PROJECT_ROOT,'../apps/spt')
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles/')
 STATIC_URL = '/static/'
