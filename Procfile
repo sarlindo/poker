@@ -1,1 +1,1 @@
-web: gunicorn poker.wsgi:spt --workers 1
+web: gunicorn poker:spt --workers 1
