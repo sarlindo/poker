@@ -69,10 +69,10 @@ WSGI_APPLICATION = 'poker.wsgi.application'
 DATABASES = {
 	'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '6n8pdi3vggh09',
-        'USER': 'teiexdueqmomzk',
-        'PASSWORD': 'Vr0jENjLzbPmJlBO3TMLEZnGjq',
-        'HOST': 'ec2-54-204-37-92.compute-1.amazonaws.com',
+        'NAME': 'dc3fq8gm4voo4m',
+        'USER': 'mvejprfhobvuka',
+        'PASSWORD': 'QW1fiusmYfGjUZV4wyl2BRLeZz',
+        'HOST': 'ec2-54-83-201-54.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
