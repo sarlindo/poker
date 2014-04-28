@@ -143,8 +143,8 @@ def pastsptwinners(request):
 			pl.firstname = gp.players_id and 
 			gp.games_id=gm.id and
 			gm.seasons_id=se.seasonnumber and
-			gm.finalseasongame = 1 and
-			gp.placement = 1
+			cast(gm.finalseasongame as int) = 1 and
+			cast(gp.placement as int) = 1
 			group by pl.firstname,se.seasonnumber order by se.seasonnumber desc                     
                         """))
 
@@ -159,7 +159,7 @@ def gamedetails(request):
 			gm.gamedate,
 			gm.gamenumber, 
 			gp.point,
-			CASE WHEN gp.placement = 0 THEN ' ' ELSE gp.placement END as placement,
+			CASE WHEN cast(gp.placement as int) = 0 THEN ' ' ELSE gp.placement END as placement,
 			gp.payout,
 			CASE WHEN cast(gp.sptmember as int) <> 0 THEN 'Yes' ELSE 'No' END As sptmember,
 			CASE WHEN cast(gm.finalseasongame as int) <> 0 THEN 'Yes' ELSE 'No' END As finalseasongame,
