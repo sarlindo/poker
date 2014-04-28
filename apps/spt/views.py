@@ -106,8 +106,8 @@ def index(request):
                         """))
 	currentgame_list = list(query_to_dicts("""
 			select
-                        (count(*) / 2) as 'numberofgames',
-			gm.seasons_id as 'seasonnumber'
+                        (count(*) / 2) as numberofgames,
+			gm.seasons_id as seasonnumber
                         from spt_game gm, spt_season se
                         where
                         gm.seasons_id=se.seasonnumber and
@@ -132,8 +132,8 @@ def index(request):
 def pastsptwinners(request):
 	psw_list = list(query_to_dicts("""
 			select 
-			pl.firstname as 'seasonwinner', 
-			se.SeasonNumber as 'seasonnumber'
+			pl.firstname as seasonwinner, 
+			se.SeasonNumber as seasonnumber
 			from spt_player pl, spt_play gp, spt_game gm, spt_season se
 			where 
 			pl.firstname = gp.players_id and 
