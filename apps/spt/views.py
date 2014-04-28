@@ -51,7 +51,7 @@ def index(request):
 			(select
                         pl.firstname as plleader,
                         se.seasonnumber,
-                        sum(gp.point) as 'points',
+                        sum(gp.point) as points,
                         (count(*) * 10) as buyintotal
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
@@ -84,7 +84,7 @@ def index(request):
                         (select
                         pl.firstname as plleader,
                         se.seasonnumber,
-                        sum(gp.point) as 'points',
+                        sum(gp.point) as points,
                         (count(*) * 10) as buyintotal
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
