@@ -16,7 +16,7 @@ def index(request):
 			where 
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
-                        gm.seasons_id=se.seasonnumber
+                        gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season)
 			group by pl.firstname 
 			having  
