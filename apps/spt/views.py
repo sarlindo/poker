@@ -62,7 +62,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
                         group by pl.firstname,se.seasonnumber,
-			poolamount,poolamountadjusted,firstplaceamount,secondplaceamount,thirdplaceamount
+			points,buyintotal
                         order by points desc limit 1) plpa               
 			where
                         pl.firstname = gp.players_id and
@@ -96,7 +96,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
                         group by pl.firstname,se.seasonnumber,
-			poolamount,poolamountadjusted,firstplaceamount,secondplaceamount,thirdplaceamount
+			points,buyintotal
                         order by points desc limit 1) plpa
                         where
                         pl.firstname = gp.players_id and
