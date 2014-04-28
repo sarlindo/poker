@@ -40,11 +40,11 @@ def index(request):
                         """))
 	currentpoolamount_list = list(query_to_dicts("""
                         select
-			(count(*) * 10) as 'poolamount',
-                        (count(*) * 10 - plpa.buyintotal) as 'poolamountadjusted',
-                        ((count(*) * 10 - plpa.buyintotal) * .50) as 'firstplaceamount',
-                        ((count(*) * 10 - plpa.buyintotal) * .30) as 'secondplaceamount',
-                        ((count(*) * 10 - plpa.buyintotal) * .20) as 'thirdplaceamount',
+			(count(*) * 10) as poolamount,
+                        (count(*) * 10 - plpa.buyintotal) as poolamountadjusted,
+                        ((count(*) * 10 - plpa.buyintotal) * .50) as firstplaceamount,
+                        ((count(*) * 10 - plpa.buyintotal) * .30) as secondplaceamount,
+                        ((count(*) * 10 - plpa.buyintotal) * .20) as thirdplaceamount,
 			plpa.buyintotal,
 			plpa.plleader
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se,
