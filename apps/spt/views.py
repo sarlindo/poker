@@ -157,7 +157,7 @@ def gamedetails(request):
 			gp.point,
 			CASE WHEN gp.placement = '0' THEN ' ' ELSE gp.placement END as placement,
 			gp.payout,
-			CASE WHEN gp.sptmember <> 0 THEN 'Yes' ELSE 'No' END As sptmember,
+			CASE WHEN gp.sptmember <> false THEN 'Yes' ELSE 'No' END As sptmember,
 			CASE WHEN gm.finalseasongame <> 0 THEN 'Yes' ELSE 'No' END As finalseasongame,
 			se.seasonnumber,
 			se.seasonyear
