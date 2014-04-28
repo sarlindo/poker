@@ -20,7 +20,8 @@ def index(request):
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-                        group by pl.firstname
+                        group by pl.firstname,
+			points
                         order by points desc
                         """))
  	previousseasonstanding_list =  list(query_to_dicts("""
@@ -35,7 +36,8 @@ def index(request):
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-                        group by pl.firstname
+                        group by pl.firstname,
+			points
                         order by points desc
                         """))
 	currentpoolamount_list = list(query_to_dicts("""
