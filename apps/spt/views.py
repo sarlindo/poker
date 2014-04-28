@@ -107,7 +107,7 @@ def index(request):
 	currentgame_list = list(query_to_dicts("""
 			select
                         (count(*) / 2) as numberofgames,
-			gm.seasons_id as seasonnumber
+			'1' as seasonnumber
                         from spt_game gm, spt_season se
                         where
                         gm.seasons_id=se.seasonnumber and
