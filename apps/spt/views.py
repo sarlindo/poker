@@ -166,7 +166,7 @@ def gamedetails(request):
 			pl.firstname = gp.players_id and 
 			gp.games_id=gm.id and
 			gm.seasons_id=se.seasonnumber
-			order by se.seasonnumber desc, gm.gamedate desc, gm.gamenumber, cast(replace(gp.placement, '0', '9') as unsigned) 
+			order by se.seasonnumber desc, gm.gamedate desc, gm.gamenumber, cast(replace(gp.placement, '0', '9') as integer) 
 			"""))
         return render(request,'gamedetails.html',
                         {'gd_list' : gd_list})
