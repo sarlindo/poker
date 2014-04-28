@@ -17,10 +17,10 @@ def index(request):
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber
+                        gm.seasons_id=(select MAX(seasonnumber) from spt_season)
 			group by pl.firstname 
-			having 
-                        gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        cast(gm.finalseasongame as int) = 0 and
+			having  
+			cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
                         order by points desc
                         """))
