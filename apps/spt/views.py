@@ -18,8 +18,8 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        gm.finalseasongame = 0 and
-                        gp.sptmember = 1
+                        gm.finalseasongame = false and
+                        gp.sptmember = true
                         group by pl.firstname
                         order by points desc
                         """))
@@ -33,8 +33,8 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
-                        gm.finalseasongame = 0 and
-                        gp.sptmember = 1
+                        gm.finalseasongame = false and
+                        gp.sptmember = true
                         group by pl.firstname
                         order by points desc
                         """))
@@ -59,8 +59,8 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        gm.finalseasongame = 0 and
-                        gp.sptmember = 1
+                        gm.finalseasongame = false and
+                        gp.sptmember = true
                         group by pl.firstname,se.seasonnumber
                         order by points desc limit 1) plpa               
 			where
@@ -68,8 +68,8 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        gm.finalseasongame = 0 and
-                        gp.sptmember = 1
+                        gm.finalseasongame = false and
+                        gp.sptmember = true
                         """))
 	previousseasonpoolamount_list = list(query_to_dicts("""
                         select
@@ -92,8 +92,8 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
-                        gm.finalseasongame = 0 and
-                        gp.sptmember = 1
+                        gm.finalseasongame = false and
+                        gp.sptmember = true
                         group by pl.firstname,se.seasonnumber
                         order by points desc limit 1) plpa
                         where
@@ -101,8 +101,8 @@ def index(request):
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
-                        gm.finalseasongame = 0 and
-                        gp.sptmember = 1
+                        gm.finalseasongame = false and
+                        gp.sptmember = true
                         """))
 	currentgame_list = list(query_to_dicts("""
 			select
@@ -112,7 +112,7 @@ def index(request):
                         where
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        gm.finalseasongame = 0
+                        gm.finalseasongame = false
                         """))
 	newsflash_list = list(query_to_dicts("""
                         select newsflash
@@ -139,7 +139,7 @@ def pastsptwinners(request):
 			pl.firstname = gp.players_id and 
 			gp.games_id=gm.id and
 			gm.seasons_id=se.seasonnumber and
-			gm.finalseasongame = 1 and
+			gm.finalseasongame = true and
 			gp.placement = 1
 			group by pl.firstname,se.seasonnumber order by se.seasonnumber desc                     
                         """))
