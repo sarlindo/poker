@@ -13,14 +13,14 @@ def index(request):
                         pl.firstname,
                         sum(gp.point) as points
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
-                        where
+                        group by pl.firstname 
+			having 
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-			group by pl.firstname
                         order by points desc
                         """))
 
