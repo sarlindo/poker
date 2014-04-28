@@ -11,14 +11,16 @@ def index(request):
 	currentstanding_list =  list(query_to_dicts("""
                         select
                         pl.firstname,
-                        sum(gp.point) as points
+                        sum(gp.point) as points,
+			gm.finalseasongame,
+			gp.sptmember
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
 			where 
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season)
-			group by pl.firstname 
+			group by pl.firstname,gm.finalseasongame,gp.sptmember 
 			having  
 			cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
