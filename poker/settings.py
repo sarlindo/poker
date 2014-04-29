@@ -13,6 +13,18 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+# Static asset configuration
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+PROJECT_DIR = os.path.join(PROJECT_ROOT,'../apps/spt')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles/')
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_DIR, 'static/'),
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -33,7 +45,7 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
 TEMPLATE_DIRS = (
-    '/root/projects/dyjango/poker/spt/templates',
+    os.path.join(PROJECT_ROOT,'../apps/spt/templates'),
 )
 
 # Application definition
@@ -90,16 +102,3 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-# Static asset configuration
-PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-PROJECT_DIR = os.path.join(PROJECT_ROOT,'../apps/spt')
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles/')
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, 'static/'),
-)
