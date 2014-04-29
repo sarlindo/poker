@@ -11,5 +11,4 @@ urlpatterns = patterns('',
 
     url(r'', include('apps.spt.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^favicon.ico$', 'redirect_to', {'url': settings.STATIC_URL + 'favicon.ico'}),
 )
