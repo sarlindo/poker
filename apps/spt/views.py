@@ -11,19 +11,16 @@ def index(request):
 	currentstanding_list =  list(query_to_dicts("""
                         select
                         pl.firstname,
-                        sum(gp.point) as points,
-			gm.finalseasongame,
-			gp.sptmember
+                        sum(gp.point) as points
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
-			where 
+                        where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
-                        gm.seasons_id=(select MAX(seasonnumber) from spt_season)
-			group by pl.firstname,gm.finalseasongame,gp.sptmember 
-			having  
-			cast(gm.finalseasongame as int) = 0 and
+                        gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
+                        cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
+			group by pl.firstname
                         order by points desc
                         """))
 
@@ -66,7 +63,6 @@ def index(request):
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-                        group by pl.firstname,se.seasonnumber,points,buyintotal
                         order by points desc limit 1) plpa               
 			where
                         pl.firstname = gp.players_id and
@@ -76,6 +72,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
                         """))
+#group by pl.firstname,se.seasonnumber
 	previousseasonpoolamount_list = list(query_to_dicts("""
                         select
                         (count(*) * 10) as poolamount,
@@ -99,7 +96,6 @@ def index(request):
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-                        group by pl.firstname,se.seasonnumber, points,buyintotal
                         order by points desc limit 1) plpa
                         where
                         pl.firstname = gp.players_id and
@@ -109,6 +105,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
                         """))
+#group by pl.firstname,se.seasonnumber
 	currentgame_list = list(query_to_dicts("""
 			select
                         (count(*) / 2) as numberofgames,
