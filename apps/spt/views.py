@@ -56,7 +56,7 @@ def index(request):
                         sum(gp.point) as points,
                         (count(*) * 10) as buyintotal
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
-                        having
+                        where
 			pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
@@ -89,7 +89,7 @@ def index(request):
                         sum(gp.point) as points,
                         (count(*) * 10) as buyintotal
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
-                        having
+                        where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
