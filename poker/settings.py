@@ -77,17 +77,20 @@ WSGI_APPLICATION = 'poker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
 
-DATABASES = {
-	'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dc3fq8gm4voo4m',
-        'USER': 'mvejprfhobvuka',
-        'PASSWORD': 'QW1fiusmYfGjUZV4wyl2BRLeZz',
-        'HOST': 'ec2-54-83-201-54.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+#DATABASES = {
+#	'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'dc3fq8gm4voo4m',
+#        'USER': 'mvejprfhobvuka',
+#        'PASSWORD': 'QW1fiusmYfGjUZV4wyl2BRLeZz',
+#        'HOST': 'ec2-54-83-201-54.compute-1.amazonaws.com',
+#        'PORT': '5432',
+#    }
+#}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
