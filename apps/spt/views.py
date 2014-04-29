@@ -43,7 +43,7 @@ def index(request):
 	currentpoolamount_list = list(query_to_dicts("""
                         select
 			(count(*) * 10) as poolamount,
-                        (count(*) * 10 - cast(plpa.buyintotal as int)) as poolamountadjusted,
+                        (count(*) * 10 - plpa.buyintotal) as poolamountadjusted,
                         ((count(*) * 10 - plpa.buyintotal) * .50) as firstplaceamount,
                         ((count(*) * 10 - plpa.buyintotal) * .30) as secondplaceamount,
                         ((count(*) * 10 - plpa.buyintotal) * .20) as thirdplaceamount,
