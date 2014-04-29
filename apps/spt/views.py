@@ -117,6 +117,7 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0
+			group by gm.seasons_id
                         """))
 	newsflash_list = list(query_to_dicts("""
                         select newsflash
