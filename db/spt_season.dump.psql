@@ -1,0 +1,17 @@
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(1,2006);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(2,2006);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(3,2007);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(4,2007);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(5,2008);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(6,2008);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(7,2009);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(8,2009);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(9,2010);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(10,2010);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(11,2011);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(12,2011);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(13,2012);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(14,2012);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(15,2013);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(16,2013);
+INSERT INTO "spt_season" ("seasonnumber", "seasonyear") VALUES(17,2014);
