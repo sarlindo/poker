@@ -33,7 +33,7 @@ STATICFILES_DIRS = (
 SECRET_KEY = 'u9ryw7i(0c2vd=3=!(nlm!al+t#(@=+v47ls_zls)6(m(5f7&('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
