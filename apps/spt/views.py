@@ -19,7 +19,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
-			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
                         order by points desc
@@ -36,7 +35,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
                         order by points desc
@@ -64,7 +62,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname,se.seasonnumber
                         order by points desc limit 1) plpa               
@@ -74,7 +71,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by plpa.buyintotal, plpa.plleader
                         """))
@@ -100,7 +96,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
   			group by pl.firstname,se.seasonnumber
                         order by points desc limit 1) plpa
@@ -110,7 +105,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
     			group by plpa.buyintotal, plpa.plleader
                         """))
