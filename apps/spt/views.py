@@ -19,7 +19,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
-			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
                         order by points desc
@@ -36,7 +35,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
                         order by points desc
@@ -64,9 +62,8 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-			group by pl.firstname,se.seasonnumber
+                        group by pl.firstname,se.seasonnumber,points,buyintotal
                         order by points desc limit 1) plpa               
 			where
                         pl.firstname = gp.players_id and
@@ -74,9 +71,7 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-			group by plpa.buyintotal, plpa.plleader
                         """))
 	previousseasonpoolamount_list = list(query_to_dicts("""
                         select
@@ -100,9 +95,8 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-  			group by pl.firstname,se.seasonnumber
+                        group by pl.firstname,se.seasonnumber, points,buyintotal
                         order by points desc limit 1) plpa
                         where
                         pl.firstname = gp.players_id and
@@ -110,9 +104,7 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) - 1 from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
- 			cast(gm.cancelledgame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-    			group by plpa.buyintotal, plpa.plleader
                         """))
 	currentgame_list = list(query_to_dicts("""
 			select
@@ -123,7 +115,6 @@ def index(request):
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0
-			group by gm.seasons_id
                         """))
 	newsflash_list = list(query_to_dicts("""
                         select newsflash

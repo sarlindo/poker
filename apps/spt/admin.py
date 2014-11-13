@@ -48,12 +48,11 @@ class GameAdmin(admin.ModelAdmin):
 	inlines = (PlayInline,)
 	def save_formset(self, request, form, formset, change):
 		obj = form.instance 
-		print obj.cancelledgame
+		#print obj.cancelledgame
 		#print formset.cancelledgame
 
 		instances = formset.save(commit=False)
 		for instance in instances:
-			print "FUCK"
 			if instance.placement == '1':
     				instance.point = 5
 			elif instance.placement == '2':
@@ -71,19 +70,18 @@ class GameAdmin(admin.ModelAdmin):
 			if instance.games.finalseasongame == True:
 				instance.buyinamount = 0
 				instance.point = 0
-			if instance.games.cancelledgame == True:
-				print "YES"
-                                instance.buyinamount = 0
-                                instance.point = 0
-			        instance.players.firstname = 'dummy'
+			#if instance.games.cancelledgame == True:
+			#	print "YES"
+                        #        instance.buyinamount = 0
+                        #        instance.point = 0
+			#        instance.players.firstname = 'dummy'
 			instance.save()
 		formset.save_m2m()
 	
 	def save_model(self, request, obj, form, change):
         	
-		print "SAVE"
                 #obj = form.instance
-                print obj.cancelledgame
+                #print obj.cancelledgame
         	obj.save()
 
  	def get_form(self,request,obj=None, **kwargs):
