@@ -37,7 +37,7 @@ class Game(models.Model):
     gamenumber = models.CharField(max_length=1, choices=NUMBEROFGAMES,verbose_name='Game Number') 
     gamedate = models.DateField(verbose_name='Game Date')
     finalseasongame = models.BooleanField(default=False,verbose_name='Final Season Game')
-    
+    cancelledgame = models.BooleanField(default=False,verbose_name='Cancelled Game')
     class Meta:
 	unique_together = (("gamenumber", "gamedate"),)    
     
