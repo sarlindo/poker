@@ -64,7 +64,9 @@ def index(request):
                         sum(gp.point) as points,
                         (count(*) * 10) as buyintotal,
 			SUM(CASE WHEN cast(gp.placement as int) = 1 THEN 1 ELSE 0 END) as FirstPlaces,
-                        SUM(CASE WHEN cast(gp.placement as int) = 2 THEN 1 ELSE 0 END) as SecondPlaces
+                        SUM(CASE WHEN cast(gp.placement as int) = 2 THEN 1 ELSE 0 END) as SecondPlaces,
+			SUM(CASE WHEN cast(gp.placement as int) = 3 THEN 1 ELSE 0 END) as ThirdPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 4 THEN 1 ELSE 0 END) as ForthPlaces
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
 			pl.firstname = gp.players_id and
@@ -74,7 +76,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname,se.seasonnumber
-                        order by points desc, FirstPlaces desc, SecondPlaces desc limit 1) plpa               
+                        order by points desc, FirstPlaces desc, SecondPlaces desc, ThirdPlaces desc, ForthPlaces desc limit 1) plpa               
 			where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
@@ -98,7 +100,11 @@ def index(request):
                         pl.firstname as plleader,
                         se.seasonnumber,
                         sum(gp.point) as points,
-                        (count(*) * 10) as buyintotal
+                        (count(*) * 10) as buyintotal,
+			SUM(CASE WHEN cast(gp.placement as int) = 1 THEN 1 ELSE 0 END) as FirstPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 2 THEN 1 ELSE 0 END) as SecondPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 3 THEN 1 ELSE 0 END) as ThirdPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 4 THEN 1 ELSE 0 END) as ForthPlaces
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
                         pl.firstname = gp.players_id and
@@ -108,7 +114,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
   			group by pl.firstname,se.seasonnumber
-                        order by points desc limit 1) plpa
+ 			order by points desc, FirstPlaces desc, SecondPlaces desc, ThirdPlaces desc, ForthPlaces desc limit 1) plpa
                         where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
