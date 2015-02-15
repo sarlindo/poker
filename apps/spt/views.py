@@ -12,10 +12,10 @@ def index(request):
                         select
                         pl.firstname,
                         sum(gp.point) as points,
-			SUM(CASE WHEN gp.placement=1 THEN 1 ELSE 0 END) as FirstPlaces,
-                        SUM(CASE WHEN gp.placement=2 THEN 1 ELSE 0 END) as SecondPlaces,
-                        SUM(CASE WHEN gp.placement=3 THEN 1 ELSE 0 END) as ThirdPlaces,
-                        SUM(CASE WHEN gp.placement=4 THEN 1 ELSE 0 END) as ForthPlaces
+			SUM(CASE WHEN cast(gp.placement as int) = 1 THEN 1 ELSE 0 END) as FirstPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 2 THEN 1 ELSE 0 END) as SecondPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 3 THEN 1 ELSE 0 END) as ThirdPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 4 THEN 1 ELSE 0 END) as ForthPlaces
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
                         pl.firstname = gp.players_id and
@@ -32,10 +32,10 @@ def index(request):
                         select
                         pl.firstname,
                         sum(gp.point) as points,
-			SUM(CASE WHEN gp.placement=1 THEN 1 ELSE 0 END) as FirstPlaces,
-                        SUM(CASE WHEN gp.placement=2 THEN 1 ELSE 0 END) as SecondPlaces,
-                        SUM(CASE WHEN gp.placement=3 THEN 1 ELSE 0 END) as ThirdPlaces,
-                        SUM(CASE WHEN gp.placement=4 THEN 1 ELSE 0 END) as ForthPlaces
+			SUM(CASE WHEN cast(gp.placement as int) = 1 THEN 1 ELSE 0 END) as FirstPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 2 THEN 1 ELSE 0 END) as SecondPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 3 THEN 1 ELSE 0 END) as ThirdPlaces,
+                        SUM(CASE WHEN cast(gp.placement as int) = 4 THEN 1 ELSE 0 END) as ForthPlaces
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
                         pl.firstname = gp.players_id and
