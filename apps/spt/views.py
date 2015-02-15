@@ -25,7 +25,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
-                        order by points,FirstPlaces,SecondPlaces,ThirdPlaces,ForthPlaces desc
+                        order by points desc,FirstPlaces desc,SecondPlaces desc,ThirdPlaces desc,ForthPlaces desc
                         """))
 
  	previousseasonstanding_list =  list(query_to_dicts("""
@@ -45,7 +45,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
- 			order by points,FirstPlaces,SecondPlaces,ThirdPlaces,ForthPlaces desc
+ 			order by points desc,FirstPlaces desc,SecondPlaces desc,ThirdPlaces desc,ForthPlaces desc
                         """))
 
 	currentpoolamount_list = list(query_to_dicts("""
