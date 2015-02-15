@@ -11,7 +11,11 @@ def index(request):
 	currentstanding_list =  list(query_to_dicts("""
                         select
                         pl.firstname,
-                        sum(gp.point) as points
+                        sum(gp.point) as points,
+			SUM(CASE WHEN gp.placement=1 THEN 1 ELSE 0 END) as FirstPlaces,
+                        SUM(CASE WHEN gp.placement=2 THEN 1 ELSE 0 END) as SecondPlaces,
+                        SUM(CASE WHEN gp.placement=3 THEN 1 ELSE 0 END) as ThirdPlaces,
+                        SUM(CASE WHEN gp.placement=4 THEN 1 ELSE 0 END) as ForthPlaces
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
                         pl.firstname = gp.players_id and
@@ -21,13 +25,17 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
-                        order by points desc
+                        order by points,FirstPlaces,SecondPlaces,ThirdPlaces,ForthPlaces desc
                         """))
 
  	previousseasonstanding_list =  list(query_to_dicts("""
                         select
                         pl.firstname,
-                        sum(gp.point) as points
+                        sum(gp.point) as points,
+			SUM(CASE WHEN gp.placement=1 THEN 1 ELSE 0 END) as FirstPlaces,
+                        SUM(CASE WHEN gp.placement=2 THEN 1 ELSE 0 END) as SecondPlaces,
+                        SUM(CASE WHEN gp.placement=3 THEN 1 ELSE 0 END) as ThirdPlaces,
+                        SUM(CASE WHEN gp.placement=4 THEN 1 ELSE 0 END) as ForthPlaces
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
                         pl.firstname = gp.players_id and
@@ -37,7 +45,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
-                        order by points desc
+ 			order by points,FirstPlaces,SecondPlaces,ThirdPlaces,ForthPlaces desc
                         """))
 
 	currentpoolamount_list = list(query_to_dicts("""
