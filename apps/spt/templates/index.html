@@ -21,7 +21,7 @@ CURRENT STANDINGS
 </h2></td><td></td></tr>
    {% for cs in currentstanding_list %}
         <tr> 
-	<td> {{ cs.firstname }} ({{ cs.FirstPlaces }}, {{ cs.SecondPlaces }}, {{ cs.ThirdPlaces }}, {{ cs.ForthPlaces }}) </td>
+	<td> {{ cs.firstname }} </td>
 	<td> {{ cs.points }} </td>
 	</tr>
 	{% if forloop.counter == 8 %}
