@@ -19,9 +19,10 @@ $("#home").attr('class', 'current');
 {% endfor %}
 CURRENT STANDINGS
 </h2></td><td></td></tr>
+   <tr><td colspan"2"><div id="legend">Legend: (# of Games, 1st, 2nd, 3rd, 4th)</div></td></tr>
    {% for cs in currentstanding_list %}
         <tr> 
-	<td> {{ cs.firstname }} {{ cs.firstplaces }} </td>
+	<td> {{ cs.firstname }} ({{ cs.totalgames }},{{ cs.firstplaces }},{{ cs.secondplaces }},{{ cs.thirdplaces }},{{ cs.forthplaces }}) </td>
 	<td> {{ cs.points }} </td>
 	</tr>
 	{% if forloop.counter == 8 %}
@@ -47,9 +48,10 @@ CURRENT STANDINGS
 </table>
 <h2>PREVIOUS SEASON STANDINGS</h2>
 <table width=100%>
+<tr><td colspan"2"><div id="legend">Legend: (# of Games, 1st, 2nd, 3rd, 4th)</div></td></tr>
 {% for prs in previousseasonstanding_list %}
 	<tr>
-        <td> {{ prs.firstname }} </td>
+        <td> {{ prs.firstname }} ({{ prs.totalgames }},{{ prs.firstplaces }},{{ prs.secondplaces }},{{ prs.thirdplaces }},{{ prs.forthplaces }})</td>
 	<td> {{ prs.points }} </td>
 	</tr> 
         {% if forloop.counter == 8 %}
