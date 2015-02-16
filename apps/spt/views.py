@@ -29,7 +29,7 @@ def index(request):
 			group by pl.firstname
                         order by points desc,firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc
                         """))
-
+	print currentstanding_list 
  	previousseasonstanding_list =  list(query_to_dicts("""
                         select
                         pl.firstname,
