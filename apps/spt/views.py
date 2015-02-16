@@ -12,7 +12,7 @@ def index(request):
                         select
                         pl.firstname,
                         sum(gp.point) as points,
-			SUM(CASE WHEN cast(gp.placement as int) >= 0 THEN 1 ELSE 0 END) as TotalGames,
+			SUM(CASE WHEN cast(gp.placement as int) = 0 THEN 1 ELSE 0 END) as TotalGames,
 			SUM(CASE WHEN cast(gp.placement as int) = 1 THEN 1 ELSE 0 END) as FirstPlaces,
                         SUM(CASE WHEN cast(gp.placement as int) = 2 THEN 1 ELSE 0 END) as SecondPlaces,
                         SUM(CASE WHEN cast(gp.placement as int) = 3 THEN 1 ELSE 0 END) as ThirdPlaces,
