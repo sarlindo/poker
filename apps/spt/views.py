@@ -150,7 +150,7 @@ def index(request):
  			(count(*) / 2) as numberofcancelledgames
                         from spt_game gm, spt_season se
                         where
-                        gm.cancelledgame=1 and
+			cast(gm.cancelledgame as int)=1 and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season)
 			 """))
