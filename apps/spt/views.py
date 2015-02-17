@@ -144,6 +144,16 @@ def index(request):
                         where
                         nf.id=(select MAX(id) from spt_newsflash)
                         """))
+
+	numberofcancelledgames_list = list(query_to_dicts("""
+			select
+ 			(count(*) / 2) as numberofcancelledgames
+                        from spt_game gm, spt_season se
+                        where
+                        gm.cancelledgame=1 and
+                        gm.seasons_id=se.seasonnumber and
+                        gm.seasons_id=(select MAX(seasonnumber) from spt_season)
+			 """))
 	
 	return render(request,'index.html',
 			{'currentstanding_list' : currentstanding_list,
@@ -151,7 +161,8 @@ def index(request):
 			'currentpoolamount_list' : currentpoolamount_list,
 			'previousseasonpoolamount_list' : previousseasonpoolamount_list,
 			'currentgame_list' : currentgame_list,
- 			'newsflash_list' : newsflash_list})
+ 			'newsflash_list' : newsflash_list,
+			'numberofcancelledgames_list' : numberofcancelledgames_list})
 
 def pastsptwinners(request):
 	psw_list = list(query_to_dicts("""
