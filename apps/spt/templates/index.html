@@ -87,6 +87,13 @@ CURRENT STANDINGS
 			
 <div id="contentspt">
 
+<h3>NEWS FLASH</h3>
+<p>
+{% for nf in newsflash_list %}
+        {{ nf.newsflash }}
+{% endfor %}
+</p>
+
 <h3>SPT</h3>
 
 <p>The Schtewit Poker Tour league was founded in 2006 by a group of friends who 
@@ -101,13 +108,6 @@ accumulated throughout the season. </p>
 
 <p>Non SPT members are allowed to play at a cost of $50 per game and are NOT
 allowed to play for the final prize pool of money.</p>
-
-<h3>NEWS FLASH</h3>
-<p>
-{% for nf in newsflash_list %}
-        {{ nf.newsflash }}
-{% endfor %}
-</p>
 </div>
 </div>
 {% endblock %}
