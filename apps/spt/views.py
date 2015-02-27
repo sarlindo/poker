@@ -222,3 +222,26 @@ def profitloss(request):
         return render(request,'profitloss.html',
                         {'pl_list' : pl_list})
 
+def stats(request):
+        stats_list = list(query_to_dicts("""
+			select
+                        pl.firstname,
+                        count(*) as numberofgamesplayed,
+                        sum(case when cast(gp.payout as int) > 0  OR cast(gp.placement as int) > 0 then 1 else 0 end) as top4,
+                        sum(gp.payout) - sum(gp.buyinamount) as profit,
+sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as percent,
+                        sum(case when cast(gp.placement as int) = 1 then 1 else 0 end) as firstplaces,
+                        sum(case when cast(gp.placement as int) = 2 then 1 else 0 end) as secondplaces,
+                        sum(case when cast(gp.placement as int) = 3 then 1 else 0 end) as thirdplaces,
+                        sum(case when cast(gp.placement as int) = 4 then 1 else 0 end) as forthplaces,
+                        sum(case when cast(gm.finalseasongame as int) = 1 and cast(gp.placement as int) = 1 then 1 else 0 end) as finaltablewins
+                        from spt_player pl, spt_play gp, spt_game gm, spt_season se
+                        where
+                        pl.firstname = gp.players_id and
+                        gp.games_id=gm.id and
+                        gm.seasons_id=se.seasonnumber
+                        group by pl.firstname order by finaltablewins desc, top4 desc,profit desc
+                        """))
+        return render(request,'stats.html',
+                        {'stats_list' : stats_list})
+
