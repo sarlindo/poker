@@ -52,42 +52,42 @@ def index(request):
                         """))
 
 	currentpoolamount_list = list(query_to_dicts("""
-                        select
-			(count(*) * 10) as poolamount,
-                        (count(*) * 10 - plpa.buyintotal) as poolamountadjusted,
-                        ((count(*) * 10 - plpa.buyintotal) * .50) as firstplaceamount,
-                        ((count(*) * 10 - plpa.buyintotal) * .30) as secondplaceamount,
-                        ((count(*) * 10 - plpa.buyintotal) * .20) as thirdplaceamount,
-			plpa.buyintotal,
-			plpa.plleader
+			select
+                        (sum(gp.buyinamount) / 60 * 10) as poolamount,
+                        (sum(gp.buyinamount) / 60 * 10 - plpa.buyintotal) as poolamountadjusted,
+                        ((sum(gp.buyinamount) / 60 * 10 - plpa.buyintotal)  * .50) as firstplaceamount,
+                        ((sum(gp.buyinamount) / 60 * 10 - plpa.buyintotal)  * .30) as secondplaceamount,
+                        ((sum(gp.buyinamount) / 60 * 10 - plpa.buyintotal)  * .20) as thirdplaceamount,
+                        plpa.buyintotal,
+                        plpa.plleader
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se,
-			(select
+                        (select
                         pl.firstname as plleader,
                         se.seasonnumber,
                         sum(gp.point) as points,
                         (count(*) * 10) as buyintotal,
-			sum(case when cast(gp.placement as int) = 1 then 1 else 0 end) as firstplaces,
+                        sum(case when cast(gp.placement as int) = 1 then 1 else 0 end) as firstplaces,
                         sum(case when cast(gp.placement as int) = 2 then 1 else 0 end) as secondplaces,
                         sum(case when cast(gp.placement as int) = 3 then 1 else 0 end) as thirdplaces,
                         sum(case when cast(gp.placement as int) = 4 then 1 else 0 end) as forthplaces
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
-			pl.firstname = gp.players_id and
-                        gp.games_id=gm.id and
-                        gm.seasons_id=se.seasonnumber and
-                        gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
-                        cast(gm.finalseasongame as int) = 0 and
-                        cast(gp.sptmember as int) = 1
-			group by pl.firstname,se.seasonnumber
-                        order by points desc, firstplaces desc, secondplaces desc, thirdplaces desc, forthplaces desc,pl.firstname limit 1) plpa               
-			where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
                         gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-			group by plpa.buyintotal, plpa.plleader
+                        group by pl.firstname,se.seasonnumber
+                        order by points desc, firstplaces desc, secondplaces desc, thirdplaces desc, forthplaces desc,pl.firstname limit 1) plpa
+                        where
+                        pl.firstname = gp.players_id and
+                        gp.games_id=gm.id and
+                        gm.seasons_id=se.seasonnumber and
+                        gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
+                        cast(gm.finalseasongame as int) = 0 and
+                        cast(gp.sptmember as int) = 1
+                        group by plpa.buyintotal, plpa.plleader
                         """))
 	previousseasonpoolamount_list = list(query_to_dicts("""
                         select
