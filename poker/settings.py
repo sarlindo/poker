@@ -45,7 +45,8 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT,'../apps/spt/templates'),
+    #os.path.join(PROJECT_ROOT,'../apps/spt/templates'),
+    os.path.join(PROJECT_DIR, 'templates'),
 )
 
 # Application definition
