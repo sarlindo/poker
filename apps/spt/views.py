@@ -27,7 +27,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
 			group by pl.firstname
-                        order by points desc,firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc,pl.firstname
+                        order by points desc,firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc, pl.firstname
                         """))
  	previousseasonstanding_list =  list(query_to_dicts("""
                         select
@@ -79,7 +79,7 @@ def index(request):
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
                         group by pl.firstname,se.seasonnumber
-                        order by points desc, firstplaces desc, secondplaces desc, thirdplaces desc, forthplaces desc,pl.firstname limit 1) plpa
+                        order by points desc, firstplaces desc, secondplaces desc, thirdplaces desc, forthplaces desc, pl.firstname limit 1) plpa
                         where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
