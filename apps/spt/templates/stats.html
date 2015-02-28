@@ -1,0 +1,46 @@
+{% extends 'base.html' %}lert($(window).height());   // returns height of browser viewpor
+{% block title %}Stats{% endblock %}
+{% block content %}
+<script>
+	$( document ).ready(function() {
+	$("#stats").attr('class', 'current');
+	});
+</script>
+<div id="container">
+			
+<div id="contentsptnosidebar">
+
+<h3>Stats</h3>
+<table id="tabledg">
+<tr>
+    <th id="thdg">Name</th>
+    <th id="thdg">Played In Season</th>
+<th id="thdg">Games Played</th>
+ <th id="thdg">Season Final Table Wins</th>
+ <th id="thdg">Season Point Leader Wins</th>
+ <th id="thdg">First Place Wins</th>
+ <th id="thdg">Second Place Wins</th>
+ <th id="thdg">Third Place Wins</th>
+ <th id="thdg">Forth Place Wins</th>
+ <th id="thdg">Top 4 Placement Percentage</th>
+ <th id="thdg">Cumalative Profit/Loss</th>
+ </tr>
+{% for stat in stats_list %}
+	<tr id="trdg">	 
+        	<td id="tddg"> {{ stat.firstname }} </td">
+		<td id="tddg"> tbd </td">
+     		<td id="tddg"> {{ stat.numberofgamesplayed }} </td>
+  		<td id="tddg"> {{ stat.finaltablewins }} </td">
+  		<td id="tddg"> tbd </td"> 
+		<td id="tddg"> {{ stat.firstplaces }} </td>
+                <td id="tddg"> {{ stat.secondplaces }} </td>
+ 		<td id="tddg"> {{ stat.thirdplaces }} </td>
+                <td id="tddg"> {{ stat.forthplaces }} </td>
+ 		<td id="tddg"> %{{ stat.percent|floatformat:"0" }} </td>
+                <td id="tddg"> ${{ stat.profit }} </td>
+	</tr>
+{% endfor %}
+</table>
+</div>
+</div>
+{% endblock %}
