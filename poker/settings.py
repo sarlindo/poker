@@ -19,11 +19,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 PROJECT_DIR = os.path.join(PROJECT_ROOT,'../apps/spt')
+
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles/')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, 'static/'),
+    os.path.join(PROJECT_ROOT, 'static/'),
 )
 
 # Quick-start development settings - unsuitable for production
@@ -46,7 +47,7 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
 )
 TEMPLATE_DIRS = (
     #os.path.join(PROJECT_ROOT,'../apps/spt/templates'),
-    os.path.join(PROJECT_DIR, 'templates'),
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 
 # Application definition
