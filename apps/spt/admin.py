@@ -33,7 +33,7 @@ class PlayInline(admin.TabularInline):
 	#form = PlayInlineAdminForm
 	model = Play
 	extra = 7
-	readonly_fields = ('point','buyinamount',)
+	readonly_fields = ('point',)
 	formset = PlayInlineFormSet
 	
 	def get_formset(self,request,obj=None, **kwargs):
