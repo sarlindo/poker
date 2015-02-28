@@ -63,13 +63,13 @@ class GameAdmin(admin.ModelAdmin):
     				instance.point = 1
 			else:
 				instance.point = 0
-			if instance.sptmember == True:
-                                instance.buyinamount = 60
-                        else:
-                                instance.buyinamount = 50
-			if instance.games.finalseasongame == True:
-				instance.buyinamount = 0
-				instance.point = 0
+			#if instance.sptmember == True:
+                        #        instance.buyinamount = 60
+                        #else:
+                        #        instance.buyinamount = 50
+			#if instance.games.finalseasongame == True:
+		#		instance.buyinamount = 0
+		#		instance.point = 0
 			#if instance.games.cancelledgame == True:
 			#	print "YES"
                         #        instance.buyinamount = 0
