@@ -190,6 +190,7 @@ def gamedetails(request):
 			gm.gamedate,
 			gm.gamenumber, 
 			gp.point,
+			case when cast(gp.buyinamount as int) > 60 then (gp.buyinamount - 60) / 60 else 0 end as rebuys,
 			CASE WHEN cast(gp.placement as int) = 0 THEN ' ' ELSE gp.placement END as placement,
 			gp.payout,
 			CASE WHEN cast(gp.sptmember as int) <> 0 THEN 'Yes' ELSE 'No' END As sptmember,
