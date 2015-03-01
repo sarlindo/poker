@@ -243,6 +243,18 @@ sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 t
                         gm.seasons_id=se.seasonnumber
                         group by pl.firstname order by finaltablewins desc, top4 desc,profit desc
                         """))
-        return render(request,'stats.html',
-                        {'stats_list' : stats_list})
 
+	seasonsplayed_list = list(query_to_dicts("""
+			select
+                        pl.firstname,
+                        se.seasonnumber
+                        from spt_player pl, spt_play gp, spt_game gm, spt_season se
+                        where
+                        pl.firstname = gp.players_id and
+                        gp.games_id=gm.id and
+                        gm.seasons_id=se.seasonnumber
+                        group by pl.firstname,seasonnumber order by pl.firstname,seasonnumber
+			 """))
+  	return render(request,'stats.html',
+                        {'stats_list' : stats_list,
+                        'seasonsplayed_list' : seasonsplayed_list})
