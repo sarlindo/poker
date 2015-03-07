@@ -36,7 +36,7 @@ def placements(dicStats):
 	&cht=bvg
 	&chd=t:""" + finishes + """
 	&chco=0000ff,99ffff,ccff00,33ff00
-	&chbh=9
+	&chbh=10
 	"""
 
     	return barchart
@@ -63,7 +63,7 @@ def profitloss(dicStats):
         &chxl=0:""" + names + """1:|-2000|-1500|-1000|-500|0|500|1000|1500|2000|2500|3000
 	&chd=t:""" + profit + """
         &cht=bvg
-	&chbh=55
+	&chbh=53
 	&chco=33ff00
 	&chds=-2000,3000
         """
@@ -93,7 +93,7 @@ def top4(dicStats):
         &cht=bvg
         &chd=t:""" + totpercent + """
         &chco=33ff00
-        &chbh=55
+        &chbh=53
         """
         
 	return barchart
@@ -122,7 +122,7 @@ def sptchamps(dicStats):
         &cht=bvg
         &chd=t:""" + totpercent + """
         &chco=33ff00
-        &chbh=55
+        &chbh=53
 	&chds=0,9
         """
  	return barchart
