@@ -10,7 +10,30 @@
 			
 <div id="contentsptnosidebar">
 
-<h3>Stats</h3>
+<h3>Stats (Played more than 10 games & SPT member)</h3>
+{% load sptcharts %}
+
+{% load chart_tags %}
+<br>
+{% chart %}
+{% sptchamps stats_list %}
+{% endchart %}
+<br>
+<br>
+{% chart %}
+{% profitloss stats_profit_list %}
+{% endchart %}
+<br>
+<br>
+{% chart %}
+{% placements stats_placements_list %}
+{% endchart %}
+<br>
+<br>
+{% chart %}
+{% top4 stats_top4_list %}
+{% endchart %}
+
 <table id="tabledg">
 <tr>
     <th id="thdg">Name</th>

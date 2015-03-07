@@ -240,8 +240,48 @@ sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 t
                         where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
-                        gm.seasons_id=se.seasonnumber
-                        group by pl.firstname order by finaltablewins desc, top4 desc,profit desc
+                        gm.seasons_id=se.seasonnumber and
+			cast(gp.sptmember as int) = 1
+                        group by pl.firstname
+			having numberofgamesplayed > 10
+			order by finaltablewins desc, top4 desc,profit desc
+                        """))
+
+ 	stats_profit_list = list(query_to_dicts("""
+                        select
+                        pl.firstname,
+                        count(*) as numberofgamesplayed,
+                        sum(gp.payout) - sum(gp.buyinamount) as profit
+                        from spt_player pl, spt_play gp, spt_game gm, spt_season se
+                        where
+                        pl.firstname = gp.players_id and
+                        gp.games_id=gm.id and
+                        gm.seasons_id=se.seasonnumber and
+			cast(gp.sptmember as int) = 1
+                        group by pl.firstname
+                        having numberofgamesplayed > 10
+                        order by profit desc
+                        """))
+
+	stats_placements_list = list(query_to_dicts("""
+                        select
+                        pl.firstname,
+                        count(*) as numberofgamesplayed,
+                        sum(case when cast(gp.placement as int) = 1 then 1 else 0 end) as firstplaces,
+                        sum(case when cast(gp.placement as int) = 2 then 1 else 0 end) as secondplaces,
+                        sum(case when cast(gp.placement as int) = 3 then 1 else 0 end) as thirdplaces,
+                        sum(case when cast(gp.placement as int) = 4 then 1 else 0 end) as forthplaces,
+			sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as percent,
+			sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) as top4
+                        from spt_player pl, spt_play gp, spt_game gm, spt_season se
+                        where
+                        pl.firstname = gp.players_id and
+                        gp.games_id=gm.id and
+                        gm.seasons_id=se.seasonnumber and
+			cast(gp.sptmember as int) = 1
+                        group by pl.firstname
+                        having numberofgamesplayed > 10
+                        order by firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc
                         """))
 
 	seasonsplayed_list = list(query_to_dicts("""
@@ -255,6 +295,24 @@ sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 t
                         gm.seasons_id=se.seasonnumber
                         group by pl.firstname,seasonnumber order by pl.firstname,seasonnumber
 			 """))
+ 	stats_top4_list = list(query_to_dicts("""
+                        select
+                        pl.firstname,
+                        count(*) as numberofgamesplayed,
+  			sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as percent
+                        from spt_player pl, spt_play gp, spt_game gm, spt_season se
+                        where
+                        pl.firstname = gp.players_id and
+                        gp.games_id=gm.id and
+                        gm.seasons_id=se.seasonnumber and
+			cast(gp.sptmember as int) = 1
+                        group by pl.firstname
+                        having numberofgamesplayed > 10
+                        order by percent desc
+                        """))
   	return render(request,'stats.html',
                         {'stats_list' : stats_list,
-                        'seasonsplayed_list' : seasonsplayed_list})
+                        'seasonsplayed_list' : seasonsplayed_list,
+			'stats_profit_list' : stats_profit_list,
+			'stats_placements_list' : stats_placements_list,
+			'stats_top4_list' : stats_top4_list})
