@@ -1,4 +1,5 @@
 from django import template
+import math
 
 
 register = template.Library()
@@ -63,7 +64,7 @@ def profitloss(dicStats):
         &chxl=0:""" + names + """1:|-2000|-1500|-1000|-500|0|500|1000|1500|2000|2500|3000
 	&chd=t:""" + profit + """
         &cht=bvg
-	&chbh=53
+	&chbh=51
 	&chco=33ff00
 	&chds=-2000,3000
         """
@@ -75,9 +76,8 @@ def top4(dicStats):
 	totpercent = ""
 	for i in range(len(dicStats)):
 		if dicStats[i]['numberofgamesplayed'] > 10:
-                	totpercent = totpercent + str(round(dicStats[i]['percent'],2)) + "," 
-			names = names + dicStats[i]['firstname'] + "(" + str(round(dicStats[i]['percent'],2)) + ")|"
-       
+                	totpercent = totpercent + str(int(dicStats[i]['percent'])) + "," 
+			names = names + dicStats[i]['firstname'] + "(" + str(int(dicStats[i]['percent'])) + ")|"
 	names = "|" + names
  
         totpercent = totpercent[:-1]
@@ -93,7 +93,7 @@ def top4(dicStats):
         &cht=bvg
         &chd=t:""" + totpercent + """
         &chco=33ff00
-        &chbh=53
+        &chbh=51
         """
         
 	return barchart

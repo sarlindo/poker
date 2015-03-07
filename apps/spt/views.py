@@ -230,7 +230,7 @@ def stats(request):
                         count(*) as numberofgamesplayed,
                         sum(case when cast(gp.payout as int) > 0  OR cast(gp.placement as int) > 0 then 1 else 0 end) as top4,
                         sum(gp.payout) - sum(gp.buyinamount) as profit,
-sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as percent,
+cast(sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as integer) as percent,
                         sum(case when cast(gp.placement as int) = 1 then 1 else 0 end) as firstplaces,
                         sum(case when cast(gp.placement as int) = 2 then 1 else 0 end) as secondplaces,
                         sum(case when cast(gp.placement as int) = 3 then 1 else 0 end) as thirdplaces,
