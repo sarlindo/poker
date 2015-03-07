@@ -13,10 +13,10 @@ def placements(dicStats):
 	for i in range(len(dicStats)):
 		if dicStats[i]['numberofgamesplayed'] > 10:
         		names = names + dicStats[i]['firstname'] + "|"
-			firstplaces = firstplaces + str(float(dicStats[i]['firstplaces']) / 20 * 100) + ","
-			secondplaces = secondplaces + str(float(dicStats[i]['secondplaces']) / 20 * 100) + ","
-			thirdplaces = thirdplaces + str(float(dicStats[i]['thirdplaces']) / 20 * 100) + ","
-			forthplaces = forthplaces + str(float(dicStats[i]['forthplaces']) / 20 * 100) + ","
+			firstplaces = firstplaces + str(float(dicStats[i]['firstplaces']) / 40 * 100) + ","
+			secondplaces = secondplaces + str(float(dicStats[i]['secondplaces']) / 40 * 100) + ","
+			thirdplaces = thirdplaces + str(float(dicStats[i]['thirdplaces']) / 40 * 100) + ","
+			forthplaces = forthplaces + str(float(dicStats[i]['forthplaces']) / 40 * 100) + ","
 
 	names = "|" + names
 	firstplaces = firstplaces[:-1]
@@ -33,7 +33,7 @@ def placements(dicStats):
 	&chs=750x200
 	&chf=c,lg,45,FFFFFF,0,F5F5F5,0.750
 	&chxt=x,y
-	&chxl=0:""" + names + """1:|0.00|5|10|15|20
+	&chxl=0:""" + names + """1:|0|10|20|30|40
 	&cht=bvg
 	&chd=t:""" + finishes + """
 	&chco=0000ff,99ffff,ccff00,33ff00
