@@ -10,11 +10,12 @@ def placements(dicStats):
 	thirdplaces = ""
 	forthplaces = ""
 	for i in range(len(dicStats)):
-        	names = names + dicStats[i]['firstname'] + "|"
-		firstplaces = firstplaces + str(float(dicStats[i]['firstplaces']) / 20 * 100) + ","
-		secondplaces = secondplaces + str(float(dicStats[i]['secondplaces']) / 20 * 100) + ","
-		thirdplaces = thirdplaces + str(float(dicStats[i]['thirdplaces']) / 20 * 100) + ","
-		forthplaces = forthplaces + str(float(dicStats[i]['forthplaces']) / 20 * 100) + ","
+		if dicStats[i]['numberofgamesplayed'] > 10:
+        		names = names + dicStats[i]['firstname'] + "|"
+			firstplaces = firstplaces + str(float(dicStats[i]['firstplaces']) / 20 * 100) + ","
+			secondplaces = secondplaces + str(float(dicStats[i]['secondplaces']) / 20 * 100) + ","
+			thirdplaces = thirdplaces + str(float(dicStats[i]['thirdplaces']) / 20 * 100) + ","
+			forthplaces = forthplaces + str(float(dicStats[i]['forthplaces']) / 20 * 100) + ","
 
 	names = "|" + names
 	firstplaces = firstplaces[:-1]
@@ -45,8 +46,9 @@ def profitloss(dicStats):
         names = ""
         profit = ""
         for i in range(len(dicStats)):
-                profit = profit + str(dicStats[i]['profit']) + ","
-		names = names + dicStats[i]['firstname'] + "(" + str(dicStats[i]['profit']) + ")|"
+		if dicStats[i]['numberofgamesplayed'] > 10:
+                	profit = profit + str(dicStats[i]['profit']) + ","
+			names = names + dicStats[i]['firstname'] + "(" + str(dicStats[i]['profit']) + ")|"
 
         names = "|" + names
         profit = profit[:-1]
@@ -72,8 +74,9 @@ def top4(dicStats):
         names = ""
 	totpercent = ""
 	for i in range(len(dicStats)):
-                totpercent = totpercent + str(round(dicStats[i]['percent'],2)) + "," 
-		names = names + dicStats[i]['firstname'] + "(" + str(round(dicStats[i]['percent'],2)) + ")|"
+		if dicStats[i]['numberofgamesplayed'] > 10:
+                	totpercent = totpercent + str(round(dicStats[i]['percent'],2)) + "," 
+			names = names + dicStats[i]['firstname'] + "(" + str(round(dicStats[i]['percent'],2)) + ")|"
        
 	names = "|" + names
  
@@ -100,8 +103,9 @@ def sptchamps(dicStats):
         names = ""
         totpercent = ""
         for i in range(len(dicStats)):
-                totpercent = totpercent + str(dicStats[i]['finaltablewins']) + ","
-                names = names + dicStats[i]['firstname'] + "(" + str(dicStats[i]['finaltablewins']) + ")|"
+		if dicStats[i]['numberofgamesplayed'] > 10:
+                	totpercent = totpercent + str(dicStats[i]['finaltablewins']) + ","
+                	names = names + dicStats[i]['firstname'] + "(" + str(dicStats[i]['finaltablewins']) + ")|"
 
         names = "|" + names
 
@@ -122,38 +126,3 @@ def sptchamps(dicStats):
 	&chds=0,10
         """
  	return barchart
-
-@register.simple_tag
-def top4old(dicStats):
-        names = ""
-        firstplaces = ""
-        secondplaces = ""
-        thirdplaces = ""
-        forthplaces = ""
-        totplace = 0
-        totpercent = 0.0
-        totpercentstr = ""
-        for i in range(len(dicStats)):
-                totplace = totplace + int(dicStats[i]['numberofgamesplayed'])
-
-        for i in range(len(dicStats)):
-                totpercent = round(float(dicStats[i]['top4']) / float(totplace) * 100,2)
-                totpercentstr = totpercentstr + str(totpercent) + ","
-                names = names + dicStats[i]['firstname'] + "(" + str(round(totpercent,2)) + ")|"
-
-        names = names[:-1]
-        totpercentstr = totpercentstr[:-1]
-
-        barchart = """
-        http://chart.apis.google.com/chart
-        ?chtt=Top+4+Placement+Percentage
-        &chts=cc0000,16
-        &chs=700x250
-        &chf=c,lg,45,FFFFFF,0,F5F5F5,0.750
-        &cht=p3
- 	&chd=t:""" + totpercentstr + """
-        &chl=""" + names + """
-        &chco=0000ff,9999cc,3333ff,33cc99,66ff99,ccff33,000000,ff0000,ff6347,ff7f50,cd5c5c
-        """
- 	return barchart
-

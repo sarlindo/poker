@@ -243,7 +243,6 @@ sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 t
                         gm.seasons_id=se.seasonnumber and
 			cast(gp.sptmember as int) = 1
                         group by pl.firstname
-			having numberofgamesplayed > 10
 			order by finaltablewins desc, top4 desc,profit desc
                         """))
 
@@ -259,7 +258,6 @@ sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 t
                         gm.seasons_id=se.seasonnumber and
 			cast(gp.sptmember as int) = 1
                         group by pl.firstname
-                        having numberofgamesplayed > 10
                         order by profit desc
                         """))
 
@@ -280,7 +278,6 @@ sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 t
                         gm.seasons_id=se.seasonnumber and
 			cast(gp.sptmember as int) = 1
                         group by pl.firstname
-                        having numberofgamesplayed > 10
                         order by firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc
                         """))
 
@@ -307,7 +304,6 @@ sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 t
                         gm.seasons_id=se.seasonnumber and
 			cast(gp.sptmember as int) = 1
                         group by pl.firstname
-                        having numberofgamesplayed > 10
                         order by percent desc
                         """))
   	return render(request,'stats.html',
