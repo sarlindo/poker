@@ -1,5 +1,4 @@
 from django import template
-import math
 
 
 register = template.Library()
@@ -103,7 +102,7 @@ def sptchamps(dicStats):
         names = ""
         totpercent = ""
         for i in range(len(dicStats)):
-		if dicStats[i]['numberofgamesplayed'] > 10:
+		if dicStats[i]['numberofgamesplayed'] > 0 and dicStats[i]['finaltablewins'] > 0:
                 	totpercent = totpercent + str(dicStats[i]['finaltablewins']) + ","
                 	names = names + dicStats[i]['firstname'] + "(" + str(dicStats[i]['finaltablewins']) + ")|"
 

@@ -240,8 +240,7 @@ cast(sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) 
                         where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
-                        gm.seasons_id=se.seasonnumber and
-			cast(gp.sptmember as int) = 1
+                        gm.seasons_id=se.seasonnumber
                         group by pl.firstname
 			order by finaltablewins desc, top4 desc,profit desc
                         """))
