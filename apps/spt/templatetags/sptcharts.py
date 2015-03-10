@@ -64,7 +64,7 @@ def profitloss(dicStats):
 	&chd=t:""" + profit + """
         &cht=bvg
 	&chbh=51
-	&chco=33ff00
+	&chco=636363
 	&chds=-2000,3000
         """
         return barchart
@@ -91,7 +91,7 @@ def top4(dicStats):
         &chxl=0:""" + names + """1:|0|10|20|30|40|50|60|70|80|90|100
         &cht=bvg
         &chd=t:""" + totpercent + """
-        &chco=33ff00
+        &chco=636363
         &chbh=51
         """
         
@@ -120,7 +120,7 @@ def sptchamps(dicStats):
         &chxl=0:""" + names + """1:|0|1|2|3|4|5|6|7|8|9|10
         &cht=bvg
         &chd=t:""" + totpercent + """
-        &chco=33ff00
+        &chco=636363
         &chbh=50
 	&chds=0,9
         """
@@ -150,7 +150,7 @@ def sptseasonpointleaders(dicStats):
         &chxl=0:""" + names + """1:|0|1|2|3|4|5|6|7|8|9|10
         &cht=bvg
         &chd=t:""" + totpercent + """
-        &chco=33ff00
+        &chco=636363
         &chbh=50
         &chds=0,9
         """
