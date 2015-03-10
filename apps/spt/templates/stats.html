@@ -18,7 +18,10 @@
 {% load chart_tags %}
 <br>
 {% chart %}
-{% sptchamps stats_list %}
+{% sptchamps stats_list %} 
+{% endchart %}
+{% chart %}
+{% sptseasonpointleaders stats_seasonleader_list %}
 {% endchart %}
 <br>
 <br>
@@ -37,12 +40,6 @@
 {% endchart %}
 <br>
 <br>
-{% chart %}
-{% sptseasonpointleaders stats_seasonleader_list %}
-{% endchart %}
-<br>
-<br>
-
 <table id="tabledg">
 <tr>
     <th id="thdg">Name</th>

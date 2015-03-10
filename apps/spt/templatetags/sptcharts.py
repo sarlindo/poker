@@ -121,7 +121,7 @@ def sptchamps(dicStats):
         &cht=bvg
         &chd=t:""" + totpercent + """
         &chco=33ff00
-        &chbh=53
+        &chbh=50
 	&chds=0,9
         """
  	return barchart
@@ -151,7 +151,7 @@ def sptseasonpointleaders(dicStats):
         &cht=bvg
         &chd=t:""" + totpercent + """
         &chco=33ff00
-        &chbh=53
+        &chbh=50
         &chds=0,9
         """
         return barchart
