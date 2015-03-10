@@ -68,7 +68,13 @@
 		</td>
      		<td id="tddg"> {{ stat.numberofgamesplayed }} </td>
   		<td id="tddg"> {{ stat.finaltablewins }} </td">
-  		<td id="tddg"> tbd </td"> 
+  		<td id="tddg"> 
+		{% for key, value in stats_seasonleader_list.iteritems %} 
+ 		{% if key == stat.firstname %}
+			{{ value }}
+	 	{% endif %}
+		{% endfor %}
+		</td"> 
 		<td id="tddg"> {{ stat.firstplaces }} </td>
                 <td id="tddg"> {{ stat.secondplaces }} </td>
  		<td id="tddg"> {{ stat.thirdplaces }} </td>
