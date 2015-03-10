@@ -305,9 +305,35 @@ cast(sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) 
                         group by pl.firstname
                         order by percent desc
                         """))
+	stats_seasonleader_sqllist = list(query_to_dicts("""
+			select
+                        pl.firstname as plleader,
+                        se.seasonnumber,
+                        sum(gp.point) as points
+                        from spt_player pl, spt_play gp, spt_game gm, spt_season se
+                        where
+                        pl.firstname = gp.players_id and
+                        gp.games_id=gm.id and
+                        gm.seasons_id=se.seasonnumber and
+                        cast(gm.finalseasongame as int) = 0 and
+                        cast(gp.sptmember as int) = 1
+                        group by pl.firstname,se.seasonnumber
+                        order by se.seasonnumber, points desc
+			"""))
+
+        seasonnumber = 0
+        seasonnumberprev = 0
+        stats_seasonleader_list = {}
+        for i in range(len(stats_seasonleader_sqllist)):
+                seasonnumber = stats_seasonleader_sqllist[i]['seasonnumber']
+                if seasonnumberprev != seasonnumber:
+                        stats_seasonleader_list[stats_seasonleader_sqllist[i]['plleader']] = stats_seasonleader_list.get(stats_seasonleader_sqllist[i]['plleader'],0) + 1
+                        seasonnumberprev = stats_seasonleader_sqllist[i]['seasonnumber']
+
   	return render(request,'stats.html',
                         {'stats_list' : stats_list,
                         'seasonsplayed_list' : seasonsplayed_list,
 			'stats_profit_list' : stats_profit_list,
 			'stats_placements_list' : stats_placements_list,
-			'stats_top4_list' : stats_top4_list})
+			'stats_top4_list' : stats_top4_list,
+			'stats_seasonleader_list' : stats_seasonleader_list})

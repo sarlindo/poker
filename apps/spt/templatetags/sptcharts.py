@@ -125,3 +125,34 @@ def sptchamps(dicStats):
 	&chds=0,9
         """
  	return barchart
+
+@register.simple_tag
+def sptseasonpointleaders(dicStats):
+
+  	names = ""
+        totpercent = ""
+
+	for key, value in dicStats.iteritems() :
+        	totpercent = totpercent + str(value) + ","
+                names = names + key + "(" + str(value) + ")|"
+
+        names = "|" + names
+
+        totpercent = totpercent[:-1]
+
+   	barchart = """
+        http://chart.apis.google.com/chart
+        ?chtt=SPT+Season+Point+Leader
+        &chts=cc0000,16
+        &chs=750x200
+        &chf=c,lg,45,FFFFFF,0,F5F5F5,0.750
+        &chxt=x,y
+        &chxl=0:""" + names + """1:|0|1|2|3|4|5|6|7|8|9|10
+        &cht=bvg
+        &chd=t:""" + totpercent + """
+        &chco=33ff00
+        &chbh=53
+        &chds=0,9
+        """
+        return barchart
+
