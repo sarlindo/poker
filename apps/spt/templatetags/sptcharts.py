@@ -35,7 +35,7 @@ def placements(dicStats):
 	&chxl=0:""" + names + """1:|0|10|20|30|40
 	&cht=bvg
 	&chd=t:""" + finishes + """
-	&chco=0000ff,99ffff,ccff00,33ff00
+	&chco=636363,99ffff,ccff00,33ff00
 	&chbh=10
 	"""
 
