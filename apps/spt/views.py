@@ -308,6 +308,11 @@ cast(sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) 
 	stats_seasonleader_sqllist = list(query_to_dicts("""
 			select
                         pl.firstname as plleader,
+  			count(*) as numberofgamesplayed,
+                        sum(case when cast(gp.placement as int) = 1 then 1 else 0 end) as firstplaces,
+                        sum(case when cast(gp.placement as int) = 2 then 1 else 0 end) as secondplaces,
+                        sum(case when cast(gp.placement as int) = 3 then 1 else 0 end) as thirdplaces,
+                        sum(case when cast(gp.placement as int) = 4 then 1 else 0 end) as forthplaces,
                         se.seasonnumber,
                         sum(gp.point) as points
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
@@ -318,7 +323,8 @@ cast(sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) 
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
                         group by pl.firstname,se.seasonnumber
-                        order by se.seasonnumber, points desc
+                        order by se.seasonnumber, points desc,
+			firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc
 			"""))
 
         seasonnumber = 0
