@@ -60,12 +60,12 @@ def profitloss(dicStats):
         &chs=750x200
         &chf=c,lg,45,FFFFFF,0,F5F5F5,0.750
         &chxt=x,y
-        &chxl=0:""" + names + """1:|-2000|-1500|-1000|-500|0|500|1000|1500|2000|2500|3000
+        &chxl=0:""" + names + """1:|-3000|-2500|-2000|-1500|-1000|-500|0|500|1000|1500|2000|2500|3000
 	&chd=t:""" + profit + """
         &cht=bvg
 	&chbh=51
 	&chco=636363
-	&chds=-2000,3000
+	&chds=-3000,3000
         """
         return barchart
 
