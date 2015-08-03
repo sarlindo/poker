@@ -1,33 +1,62 @@
 {% extends 'base.html' %}lert($(window).height());   // returns height of browser viewpor
 {% block title %}ProfitLoss{% endblock %}
 {% block content %}
+
 <script>
-	$( document ).ready(function() {
-	$("#profitloss").attr('class', 'current');
+	$(document).ready(function() {
+		$("#profitloss").attr('class', 'active');
 	});
 </script>
-<div id="container">
-			
-<div id="contentsptnosidebar">
-{% for pl in pl_list %}
-	{% ifchanged pl.seasonnumber %}
-		{% if not forloop.first %}
-			</table>
-		{% endif %}
-		<h3> Season {{ pl.seasonnumber }}</h3>
-		<table id="tabledg">
-  			<tr id="trdg">
-    				<th id="thdg">First Name</th>
-    				<th id="thdg">Profit</th>
-  			</tr>
-	{% endifchanged %}
-	<tr id="trdg">
-       		<td id="tddg"> {{ pl.firstname }} </td>
-       		<td id="tddg"> ${{ pl.profit }} </td>
-	</tr>
-{% endfor %}
-</table>
 
-</div>
+{% load utility %}
+
+<div class="container">
+
+	<div class="row row-offcanvas row-offcanvas-right">
+
+		<div class="col-sm-12">
+
+
+  
+			<div class="row">
+			
+			{% for pl in pl_list %}
+			
+			{% ifchanged pl.seasonnumber %} 
+				{% if not forloop.first %}
+					</tbody>
+					</table>
+					</div>
+					{% if pl_list.0.seasonnumber|isoddnumberseason:pl.seasonnumber = 0 %}
+						</div>
+						<div class="row">
+					{% endif %}
+			
+				{% endif %}
+		
+			
+			<div class="col-sm-6">	
+			<h3>Season {{ pl.seasonnumber }}</h3>
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr>
+						<th class="col-md-1">First Name</th>
+						<th class="col-md-1">Profit</th>
+					</tr>
+				</thead>
+				<tbody>
+			{% endifchanged %}
+					<tr>
+						<td>{{ pl.firstname }}</td>
+						<td>${{ pl.profit }}</td>
+					</tr>
+			{% endfor %}
+				</tbody>
+			</table>
+			
+			</div>
+
+		</div>
+	</div>
 </div>
 {% endblock %}

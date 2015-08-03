@@ -1,89 +1,52 @@
 {% extends 'base.html' %}lert($(window).height());   // returns height of browser viewpor
 {% block title %}Stats{% endblock %}
 {% block content %}
+
 <script>
 	$( document ).ready(function() {
-	$("#stats").attr('class', 'current');
+	$("#stats").attr('class', 'active');
 	});
 </script>
-<div id="container">
-			
-<div id="contentsptnosidebar">
 
-<h3>Stats</h3>
-<div id="legend">Note: Most data based only from Season 16 onwards,players who have played more than 10 games and SPT members. </div>
+<script src="{{STATIC_URL}}sptstats.js"></script>
 
-{% load sptcharts %}
+<div class="container">
+	<div class="row">
 
-{% load chart_tags %}
-<br>
-{% chart %}
-{% sptchamps stats_list %} 
-{% endchart %}
-<br>
-<br>
-{% chart %}
-{% sptseasonpointleaders stats_seasonleader_list %}
-{% endchart %}
-<br>
-<br>
-{% chart %}
-{% profitloss stats_profit_list %}
-{% endchart %}
-<br>
-<br>
-{% chart %}
-{% placements stats_placements_list %}
-{% endchart %}
-<br>
-<br>
-{% chart %}
-{% top4 stats_top4_list %}
-{% endchart %}
-<br>
-<br>
-<table id="tabledg">
-<tr>
-    <th id="thdg">Name</th>
-    <th id="thdg">Played In Season</th>
-<th id="thdg">Games Played</th>
- <th id="thdg">Season Final Table Wins</th>
- <th id="thdg">Season Point Leader Wins</th>
- <th id="thdg">First Place Wins</th>
- <th id="thdg">Second Place Wins</th>
- <th id="thdg">Third Place Wins</th>
- <th id="thdg">Forth Place Wins</th>
- <th id="thdg">Top 4 Placement Percentage</th>
- <th id="thdg">Cumalative Profit/Loss</th>
- </tr>
-{% for stat in stats_list %}
-	<tr id="trdg">	 
-        	<td id="tddg"> {{ stat.firstname }} </td">
-		 <td id="tddg">
-		{% for seasonsplayed in seasonsplayed_list %}
-		{% if seasonsplayed.firstname == stat.firstname %}
-			{{ seasonsplayed.seasonnumber }}, 
-		{% endif %}
-		{% endfor %}
-		</td>
-     		<td id="tddg"> {{ stat.numberofgamesplayed }} </td>
-  		<td id="tddg"> {{ stat.finaltablewins }} </td">
-  		<td id="tddg"> 
-		{% for key, value in stats_seasonleader_list.iteritems %} 
- 		{% if key == stat.firstname %}
-			{{ value }}
-	 	{% endif %}
-		{% endfor %}
-		</td"> 
-		<td id="tddg"> {{ stat.firstplaces }} </td>
-                <td id="tddg"> {{ stat.secondplaces }} </td>
- 		<td id="tddg"> {{ stat.thirdplaces }} </td>
-                <td id="tddg"> {{ stat.forthplaces }} </td>
- 		<td id="tddg"> %{{ stat.percent|floatformat:"0" }} </td>
-                <td id="tddg"> ${{ stat.profit }} </td>
-	</tr>
-{% endfor %}
-</table>
-</div>
-</div>
+			<div class="span3 table-responsive col-sm-6">
+	
+				<div id="plot1" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+			</div>
+		
+		
+			<div class="span3 table-responsive col-sm-6">
+				<div id="plot2" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+			</div>
+		
+	</div>
+	
+	<div class="row">
+			<div class="span3 table-responsive col-sm-6">
+	
+				<div id="plot3" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+			</div>
+		
+			<div class="span3 table-responsive col-sm-6">
+				<div id="plot4" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+			</div>
+		
+	</div>
+	
+	<div class="row">
+			<div class="span3 table-responsive col-sm-6">
+	
+				<div id="plot5" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+			</div>
+		
+			<div class="span3 table-responsive col-sm-6">
+				<div id="plot6" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+			</div>
+		
+	</div>
+
 {% endblock %}

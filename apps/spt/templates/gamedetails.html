@@ -4,69 +4,66 @@
 
 <script>
 	$( document ).ready(function() {
-	$("#gamedetails").attr('class', 'current');
+	$("#gamedetails").attr('class', 'active');
 	});
 </script>
 
-<div id="container">
-			
-<div id="contentsptnosidebar">
-{% for gd in gd_list %}
-	{% ifchanged gd.seasonnumber %}
-		{% if not forloop.first %}
-			</table>
-		{% endif %}
-		<h3> Season {{ gd.seasonyear }} - {{ gd.seasonnumber }}</h3>
-		<table id="tabledg">
-		<tr>
-			<th id="thdg">Game Date</th>
-			<th id="thdg">Game Number</th>
-			<th id="thdg">Final Season Game?</th>
-			<th id="thdg">First Name</th>
-			<th id="thdg">SPT Member?</th>
-			<th id="thdg">Placement</th>
-			<th id="thdg">Points</th>
-			<th id="thdg">Payout</th>
-			<th id="thdg">Buy-In Amount</th>
-			<th id="thdg">Re-Buys</th>
-		</tr>
+<div class="container">
 
+	<div class="row row-offcanvas row-offcanvas-right">
+
+			
+		
+{% for gd in gd_list %}
+	{% ifchanged gd.seasonnumber or ifchanged gd.gamenumber or ifchanged gd.finalseasongame  %}
+		{% if not forloop.first %}
+			</tbody>
+			</table>
+			</div>
+			</div>
+		{% endif %}
+		{% ifchanged gd.seasonnumber %}
+		
+			<h3> Season {{ gd.seasonyear }} - {{ gd.seasonnumber }}</h3>
+		{% endifchanged %}
+		
+		{% if gd.finalseasongame == 'Yes' %}
+			<h4>{{ gd.gamedate }} - Game {{ gd.gamenumber }} <br> (Final Table Game)</h4>
+		{% else %}
+			<h4>{{ gd.gamedate }} - Game {{ gd.gamenumber }}</h4>
+		{% endif %}
+		
+		<div class="col-sm-12">
+		<div class="table-responsive">
+			<table class="table table-hover table-condensed">
+				<thead>
+					<tr>
+			<th class="col-md-1">Name</th>
+			<th class="col-md-1">Pts</th>
+			<th class="col-md-1">Pay</th>
+			<th class="col-md-1">Buy-In</th>
+			<th class="col-md-3">Re-Buys</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+	
 	{% endifchanged %}
 	
-	{% ifchanged gd.gamedate %}
-		<tr id="trbg1">
-		 	<td colspan="10">&nbsp;</td> 
-		</tr>
-		<tr id="trbg2">
-	{% else %}
-		<tr id="trbg2">
-	{% endifchanged %}
-	{% if gd.gamenumber == '1' %}
-       		<td id="tddg"> {{ gd.gamedate }} </td>
-        	<td id="tddg"> {{ gd.gamenumber }} </td>
-        	<td id="tddg"> {{ gd.finalseasongame }} </td>
-        	<td id="tddg"> {{ gd.firstname }} </td>
-        	<td id="tddg"> {{ gd.sptmember }} </td>
-        	<td id="tddg"> {{ gd.placement }} </td>
-        	<td id="tddg"> {{ gd.point }} </td>
-        	<td id="tddg"> ${{ gd.payout }} </td>
-        	<td id="tddg"> ${{ gd.buyinamount }} </td>
-		<td id="tddg"> {{ gd.rebuys }} </td>
-	{% else %}
- 		<td id="tddg2"> {{ gd.gamedate }} </td>
-                <td id="tddg2"> {{ gd.gamenumber }} </td>
-                <td id="tddg2"> {{ gd.finalseasongame }} </td>
-                <td id="tddg2"> {{ gd.firstname }} </td>
-                <td id="tddg2"> {{ gd.sptmember }} </td>
-                <td id="tddg2"> {{ gd.placement }} </td>
-                <td id="tddg2"> {{ gd.point }} </td>
-                <td id="tddg2"> ${{ gd.payout }} </td>
-                <td id="tddg2"> ${{ gd.buyinamount }} </td>
-		<td id="tddg2"> {{ gd.rebuys }} </td>
-	{% endif %}
-	</tr>
+	
+				<tr>
+ 		        <td> {{ gd.firstname }} </td>
+                <td> {{ gd.point }} </td>
+                <td> ${{ gd.payout }} </td>
+                <td> ${{ gd.buyinamount }} </td>
+				<td> {{ gd.rebuys }} </td>
+				</tr>
+	
+	
 {% endfor %}
+</tbody>
 </table>
+</div>
 </div>
 </div>
 {% endblock %}

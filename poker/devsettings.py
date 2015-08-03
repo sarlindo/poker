@@ -32,7 +32,7 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
 TEMPLATE_DIRS = (
-    '/root/projects/dyjango/poker/spt/templates',
+    '/root/projects/dyjango/poker/apps/spt/templates',
 )
 
 # Application definition

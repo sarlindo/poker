@@ -1,114 +1,262 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
+
 <script>
-$( document ).ready(function() {
-$("#home").attr('class', 'current');
-});
+	$(document).ready(function() {
+		$("#home").attr('class', 'active');
+	});
+
 </script>
-<div id="container">
 
-<div id="sidebar">
+<div class="container">
 
-<table>
-<tr><td>
-<h2>
-{% for sg in currentgame_list %}
-        Season {{ sg.seasonnumber }} <br>
-        Night {{ sg.numberofgames }} of 12 <br>
-	Cancelled Nights {{ numberofcancelledgames_list.0.numberofcancelledgames }} <br><br>
-{% endfor %}
-CURRENT STANDINGS
-</h2></td><td></td></tr>
-   <tr><td colspan"2"><div id="legend">Legend: (# of Games, 1st, 2nd, 3rd, 4th)</div></td></tr>
-   {% for cs in currentstanding_list %}
-        <tr> 
-	<td> {{ cs.firstname }} ({{ cs.totalgames }},{{ cs.firstplaces }},{{ cs.secondplaces }},{{ cs.thirdplaces }},{{ cs.forthplaces }}) </td>
-	<td> {{ cs.points }} </td>
-	</tr>
-	{% if forloop.counter == 9 %}
-		<tr><td colspan"2">&nbsp;</td></tr>
-	{% endif %}	
-    {% endfor %}
-<tr><td><h2>CURRENT POOL AMOUNT</h2></td><td></td></tr>
-<tr><td>
-{% for cpa in currentpoolamount_list %}
-        Total=${{ cpa.poolamount }}
-	<br>
-	PL buy-in Total=${{ cpa.buyintotal }} ({{ cpa.plleader }})
-	<br>
-	Adjusted Pool Total=${{ cpa.poolamountadjusted }}
-	<br>
-	1st=${{ cpa.firstplaceamount }} (50%)
-	<br>
-	2nd=${{ cpa.secondplaceamount }} (30%)
-	<br>
-	3rd=${{ cpa.thirdplaceamount }} (20%)
-{% endfor %}
-</td><td></td></tr>
-</table>
-<h2>PREVIOUS SEASON STANDINGS</h2>
-<table width=100%>
-<tr><td colspan"2"><div id="legend">Legend: (# of Games, 1st, 2nd, 3rd, 4th)</div></td></tr>
-{% for prs in previousseasonstanding_list %}
-	<tr>
-        <td> {{ prs.firstname }} ({{ prs.totalgames }},{{ prs.firstplaces }},{{ prs.secondplaces }},{{ prs.thirdplaces }},{{ prs.forthplaces }})</td>
-	<td> {{ prs.points }} </td>
-	</tr> 
-        {% if forloop.counter == 8 %}
-                <tr><td colspan"2">&nbsp;</td></tr>
-        {% endif %}
-{% endfor %}
-</table>
-<h2>PREVIOUS SEASON POOL AMOUNT</h2>
-{% for prpa in previousseasonpoolamount_list %}
-        Total=${{ prpa.poolamount }}
-        <br>
-        PL buy-in Total=${{ prpa.buyintotal }} ({{ prpa.plleader }})
-        <br>
-        Adjusted Pool Total=${{ prpa.poolamountadjusted }}
-        <br>
-        1st=${{ prpa.firstplaceamount }} (50%)
-        <br>
-        2nd=${{ prpa.secondplaceamount }} (30%)
-        <br>
-        3rd=${{ prpa.thirdplaceamount }} (20%)
-{% endfor %}
-<h2>STANDARD PAYOUT</h2>
-5p-$250 1st=$180, 2nd=$70<br>
-6p-$300 1st=$200, 2nd=$100<br>
-7p-$350 1st=$200, 2nd=$100, 3rd=$50<br>
-8p-$400 1st=$220, 2nd=$120, 3rd=$60<br>
-9p-$450 1st=$250, 2nd=$140, 3rd=$60<br>
-10p-$500 1st=$270, 2nd=$160, 3rd=$70<br>
-11p-$550 1st=$300, 2nd=$180, 3rd=$70<br>
-12p-$600 1st=$340, 2nd=$180, 3rd=$80
-				
-</div>
+	<div class="row row-offcanvas row-offcanvas-right">
+
+		<div class="col-sm-2" id="sidebar">
+			<div class="list-group">
+				<a href="#" class="list-group-item active">News Flash</a> 
+				<a href="#" class="list-group-item">
+				{% for nf in newsflash_list %}
+        			{{ nf.newsflash }}
+				{% endfor %}
+				</a> 
+			</div>
+		</div>
+		
+		<div class="col-sm-10">
+			<div class="jumbotron">
+				<p>
+					<img src="{{STATIC_URL}}image/aces.png"></img> The Schtewit Poker
+					Tour league was founded in 2006 by a group of friends who needed an
+					excuse to get away from their wives and stay in contact with
+					friends.
+				</p>
+				<p>A SPT season consists of 12 nights; 2 games per night at $60
+					per game; $10 of which is placed into a prize pool and runs every 2
+					weeks. Points are awarded to members that finish in first, second,
+					third and forth for each game. 5 points awarded for first, 3 points
+					for second, 2 points for third and 1 point for forth. The top 9
+					players with the most points during the season, play the final
+					table game for the prize pool of money accumulated throughout the
+					season.</p>
+
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post"
+					target="_top">
+					<input type="hidden" name="cmd" value="_s-xclick"> <input
+						type="hidden" name="hosted_button_id" value="9P6QRCZA6JGEY">
+					<input type="submit" class="btn btn-success"
+						value="Support the SPT site">
+				</form>
+
+
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+
+			<h3>
 			
-<div id="contentspt">
+			{% for sg in currentgame_list %} Current Season {{ sg.seasonnumber }} - Night {{ sg.numberofgames }} of 12 </h3> <h5>(Cancelled Nights {{numberofcancelledgames_list.0.numberofcancelledgames }} {% endfor %})</h5>
+			<br>
+				<form action="./" method="POST" id="form_preseason">
+				{% csrf_token %}
+				{% with pll_list|first as first_pll_list %}
+					<input type="hidden" value="{{ first_pll_list.seasonnumber }}" name="seasonnumber" />
+				{% endwith %}
 
-<h3>NEWS FLASH</h3>
-<p>
-{% for nf in newsflash_list %}
-        {{ nf.newsflash }}
-{% endfor %}
-</p>
+    			<input type="submit" value="&laquo; Previous" class="btn btn-default pull-left" role="button">
+				</form><a class="btn btn-default pull-right" href="./" role="button">Current</a>
+			</div>
+			</div>
+						
+			<div class="row">
+				<div class="col-sm-6">
 
-<h3>SPT</h3>
+				{% with pll_list|first as first_pll_list %}
+						<h3>Season {{ first_pll_list.seasonnumber }} Standings</h3>
+				{% endwith %}
+				
+					<table class="table table-hover table-condensed">
+						<thead>
+							<tr>
+								<th class="col-md-1">Name</th>
+								<th class="col-md-1">Games</th>
+								<th class="col-md-1">1st</th>
+								<th class="col-md-1">2nd</th>
+								<th class="col-md-1">3rd</th>
+								<th class="col-md-1">4th</th>
+								<th class="col-md-1">Pts</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for cs in currentstanding_list %}
+							<tr>
+								<td>{{ cs.firstname }}</td>
+								<td>{{ cs.totalgames }}</td>
+								<td>{{ cs.firstplaces }}</td>
+								<td>{{ cs.secondplaces }}</td>
+								<td>{{ cs.thirdplaces }}</td>
+								<td>{{ cs.forthplaces }}</td>
+								<td>{{ cs.points }}</td>
+							</tr>
+							{% if forloop.counter == 9 %}
+							<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							{% endif %} {% endfor %}
+						</tbody>
+					</table>
+					<p>
+						<a class="btn btn-default" href="./gamedetails" role="button">View game details &raquo;</a>
+					</p>
+				</div>
 
-<p>The Schtewit Poker Tour league was founded in 2006 by a group of friends who 
-needed an excuse to get away from their wives and stay in contact with friends. </p> 
+				<div class="col-sm-6">
+				{% with pll_list|first as first_pll_list %}
+						<h3>Season {{ first_pll_list.seasonnumber }} Profit/Loss</h3>
+				{% endwith %}
+				
+					<table class="table table-hover table-condensed">
+						<thead>
+							<tr>
+								<th class="col-md-1">Name</th>
+								<th class="col-md-1">Profit</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% for pll in pll_list %}
+						
+						
+            				<tr>
+								<td>{{ pll.firstname }}</td>
+								<td>{{ pll.profit }}</td>
+							</tr>
+        				
+							
+						{% endfor %}	
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
 
-<p>A SPT season consists of 12 nights; 2 games per night at $60 per game; $10 of which is 
-placed into a prize pool and runs every 2 weeks. Points are awarded to members that finish in 
-first, second, third and forth for each game. 5 points awarded for first, 3 points 
-for second, 2 points for third and 1 point for forth. The top 8 players with the 
-most points during the season, play the final table game for the prize pool of money 
-accumulated throughout the season. </p>
+				<div class="col-sm-6">
+					{% with pll_list|first as first_pll_list %}
+						<h3>Season {{ first_pll_list.seasonnumber }} Pool Amount</h3>
+					{% endwith %}
+				
+					<table class="table table-hover table-condensed">
+						<thead>
+							<tr>
+								<th class="col-md-2">Total</th>
+								<th class="col-md-2">Point Leader buy-ins</th>
+								<th class="col-md-2">Adj Pool Total</th>
+								<th class="col-md-2">1st (50%)</th>
+								<th class="col-md-2">2nd (30%)</th>
+								<th class="col-md-2">3rd (20%)</th>
+							</tr>
+						</thead>
+						<tbody>
 
-<p>Non SPT members are allowed to play at a cost of $50 per game and are NOT
-allowed to play for the final prize pool of money.</p>
-</div>
-</div>
-{% endblock %}
+							{% for cpa in currentpoolamount_list %}
+							<tr>
+								<td>${{ cpa.poolamount }}</td>
+								<td>${{ cpa.buyintotal }} ({{ cpa.plleader }})</td>
+
+								<td>${{ cpa.poolamountadjusted }}</td>
+
+								<td>${{ cpa.firstplaceamount }}</td>
+
+								<td>${{ cpa.secondplaceamount }}</td>
+
+								<td>${{ cpa.thirdplaceamount }}</td>
+							<tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="col-sm-6">
+					<h3>Standard Payout</h3>
+					<table class="table table-hover table-condensed">
+						<thead>
+							<tr>
+								<th class="col-md-1"># of Players</th>
+								<th class="col-md-1">Pool</th>
+								<th class="col-md-1">1st</th>
+								<th class="col-md-1">2nd</th>
+								<th class="col-md-1">3rd</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>5</td>
+								<td>$250</td>
+								<td>$180</td>
+								<td>$70</td>
+								<td>$0</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>$300</td>
+								<td>$200</td>
+								<td>$100</td>
+								<td>$0</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>$350</td>
+								<td>$200</td>
+								<td>$100</td>
+								<td>$50</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>$400</td>
+								<td>$220</td>
+								<td>$120</td>
+								<td>$60</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>$450</td>
+								<td>$250</td>
+								<td>$140</td>
+								<td>$60</td>
+							</tr>
+														<tr>
+								<td>10</td>
+								<td>$500</td>
+								<td>$270</td>
+								<td>$160</td>
+								<td>$70</td>
+							</tr>
+							<tr>
+								<td>11</td>
+								<td>$550</td>
+								<td>$300</td>
+								<td>$180</td>
+								<td>$70</td>
+							</tr>
+							<tr>
+								<td>12</td>
+								<td>$600</td>
+								<td>$340</td>
+								<td>$180</td>
+								<td>$80</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endblock %}
