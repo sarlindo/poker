@@ -43,7 +43,7 @@ def index(request):
                         gm.seasons_id=(""" + selectedseason + """) and
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
-            group by pl.firstname
+            group by pl.firstname,se.seasonnumber
                         order by points desc,firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc, pl.firstname
                         """))
 
