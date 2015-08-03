@@ -362,6 +362,11 @@ $(document).ready(function() {
                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                            style: {
                                textShadow: '0 0 3px black'
+                           },
+                           formatter:function() {
+                        	    if(this.y != 0) {
+                        	      return this.y;
+                        	    }
                            }
                        }
 
