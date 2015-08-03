@@ -199,6 +199,7 @@ def profitloss(request):
 def get_profit(request):
     
     data = list(query_to_dicts("""
+            select * from (
                         select
                         pl.firstname,
                         count(*) as numberofgamesplayed,
@@ -208,9 +209,10 @@ def get_profit(request):
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
-            cast(gp.sptmember as int) = 1
+                        cast(gp.sptmember as int) = 1
                         group by pl.firstname
-                        order by profit desc
+                        order by profit desc) a
+            where a.numberofgamesplayed > 9
                         """))
 
        
@@ -219,18 +221,20 @@ def get_profit(request):
 def get_placement(request):
     
     data = list(query_to_dicts("""
+            select * from (
                         select
                         pl.firstname,
                         count(*) as numberofgamesplayed,
-              sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as percent
+                        sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as percent
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
-            cast(gp.sptmember as int) = 1
+                        cast(gp.sptmember as int) = 1
                         group by pl.firstname
-                        order by percent desc
+                        order by percent desc) a
+            where a.numberofgamesplayed > 9
                         """))
 
         
@@ -239,6 +243,7 @@ def get_placement(request):
 def get_placementwins(request):
     
     data = list(query_to_dicts("""
+            select * from (
                         select
                         pl.firstname,
                         count(*) as numberofgamesplayed,
@@ -246,16 +251,17 @@ def get_placementwins(request):
                         sum(case when cast(gp.placement as int) = 2 then 1 else 0 end) as secondplaces,
                         sum(case when cast(gp.placement as int) = 3 then 1 else 0 end) as thirdplaces,
                         sum(case when cast(gp.placement as int) = 4 then 1 else 0 end) as forthplaces,
-            sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as percent,
-            sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) as top4
+                        sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) / cast(count(*) as float)  * 100 as percent,
+                        sum(case when cast(gp.payout as float) > 0  OR cast(gp.placement as float) > 0 then 1 else 0 end) as top4
                         from spt_player pl, spt_play gp, spt_game gm, spt_season se
                         where
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
-            cast(gp.sptmember as int) = 1
+                        cast(gp.sptmember as int) = 1
                         group by pl.firstname
-                        order by firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc
+                        order by firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc) a
+             where a.numberofgamesplayed > 9
                         """))
 
        
@@ -277,9 +283,10 @@ def get_plfinaltablewins(request):
                 order by finaltablewins desc
                         """))
     stats_seasonleader_sqllist = list(query_to_dicts("""
-            select
+            select * from (
+                select
                         pl.firstname,
-              count(*) as numberofgamesplayed,
+                        count(*) as numberofgamesplayed,
                         sum(case when cast(gp.placement as int) = 1 then 1 else 0 end) as firstplaces,
                         sum(case when cast(gp.placement as int) = 2 then 1 else 0 end) as secondplaces,
                         sum(case when cast(gp.placement as int) = 3 then 1 else 0 end) as thirdplaces,
@@ -295,7 +302,8 @@ def get_plfinaltablewins(request):
                         cast(gp.sptmember as int) = 1
                         group by pl.firstname,se.seasonnumber
                         order by se.seasonnumber, points desc,
-            firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc
+                        firstplaces desc,secondplaces desc,thirdplaces desc,forthplaces desc) a
+            where a.numberofgamesplayed > 9
             """))
 
 
