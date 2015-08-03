@@ -300,9 +300,12 @@ $(document).ready(function() {
     	var Labels = [
     			callback[i]['firstname']
     	];
-    	ftData.push(ft);
-    	plData.push(pl);
-    	yourLabels.push(Labels);
+    	
+    	if (callback[i]['finaltablewins'] > 0 || callback[i]['plleader'] > 0) {  
+    		ftData.push(ft);
+    		plData.push(pl);
+    		yourLabels.push(Labels);
+    	}
     }
     
    $(function () {
