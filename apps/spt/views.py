@@ -334,7 +334,7 @@ def get_profitbyseason(request):
                         cast(gp.sptmember as int) = 1
                         group by se.seasonnumber,pl.firstname
                         order by se.seasonnumber) a
-                where a.numberofgamesplayed > 1
+                where a.numberofgamesplayed > 9
                 """))
     
         
