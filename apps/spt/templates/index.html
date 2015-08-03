@@ -57,7 +57,7 @@
 
 			<h3>
 			
-			{% for sg in currentgame_list %} Current Season {{ sg.seasonnumber }} - Night {{ sg.numberofgames }} of 12 </h3> <h5>(Cancelled Nights {{numberofcancelledgames_list.0.numberofcancelledgames }} {% endfor %})</h5>
+			{% for sg in currentgame_list %} Current Season {{ sg.seasonnumber }} - Night {{ sg.numberofgames }} of 12 </h3> <h5>(Cancelled Nights - {{numberofcancelledgames_list.0.numberofcancelledgames }} {% endfor %})</h5>
 			<br>
 				<form action="./" method="POST" id="form_preseason">
 				{% csrf_token %}
