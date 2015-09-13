@@ -1,0 +1,2 @@
+The following URL will expire at 2015-08-03 20:36:39 +0000:
+   'https://xfrtu.s3.amazonaws.com/988c93c2-cf7c-47e1-8ce1-5e9d97af76ca/2015-08-03T19%3A31%3A02Z/30dd05a4-3f15-434f-933e-6279885d949b?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJQE5E3XOYH2LQHPQ%2F20150803%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20150803T193639Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1a4139ab0be5fdf8c5979e3860a1099c725798aad60fdabff66fb61c7fbdb155'

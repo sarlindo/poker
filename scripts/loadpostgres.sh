@@ -1,10 +1,11 @@
 #!/bin/bash
 
+backup_name=b006
 cd /root/projects/dyjango/poker
-heroku pgbackups:capture --expire
-heroku pgbackups:capture
 
-curl -o latest.dump `heroku pgbackups:url`
+#heroku pg:backups capture
+
+curl -o latest.dump `heroku pg:backups public-url $backup_name | tr -d '\r\n' | sed -e "s/.*'\(.*\).*'/\1/"`
 
 mv latest.dump /root/projects/dyjango/poker/db
 
