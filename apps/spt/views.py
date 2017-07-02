@@ -23,9 +23,6 @@ def index(request):
         if seasonnumbertmp != "":
             selectedseason = str(int(seasonnumbertmp) - 1)    
      
-    print "YES"
-    print selectedseason
-        
     currentstanding_list =  list(query_to_dicts("""
                         select
                         pl.firstname,
