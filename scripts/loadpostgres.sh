@@ -1,6 +1,6 @@
 #!/bin/bash
 
-backup_name=b006
+backup_name=b007
 cd /root/projects/dyjango/poker
 
 #heroku pg:backups capture

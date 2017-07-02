@@ -1,5 +1,7 @@
 *.pyc
 *.json
 *~
-db/db*
+db/**
 *.psql
+poker/devsettings.py
+poker/settings.py

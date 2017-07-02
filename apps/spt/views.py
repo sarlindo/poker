@@ -23,6 +23,8 @@ def index(request):
         if seasonnumbertmp != "":
             selectedseason = str(int(seasonnumbertmp) - 1)    
      
+    print "YES"
+    print selectedseason
         
     currentstanding_list =  list(query_to_dicts("""
                         select
@@ -80,7 +82,7 @@ def index(request):
                         pl.firstname = gp.players_id and
                         gp.games_id=gm.id and
                         gm.seasons_id=se.seasonnumber and
-                        gm.seasons_id=(select MAX(seasonnumber) from spt_season) and
+                        gm.seasons_id=(""" + selectedseason + """) and
                         cast(gm.finalseasongame as int) = 0 and
                         cast(gp.sptmember as int) = 1
                         group by plpa.buyintotal, plpa.plleader
