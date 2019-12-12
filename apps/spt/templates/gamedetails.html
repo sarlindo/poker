@@ -15,7 +15,7 @@
 			
 		
 {% for gd in gd_list %}
-	{% ifchanged gd.seasonnumber or ifchanged gd.gamenumber or ifchanged gd.finalseasongame  %}
+	{% ifchanged gd.seasonnumber or ifchanged gd.gamenumber or ifchanged gd.finalseasongame or ifchanged gd.gamedate %}
 		{% if not forloop.first %}
 			</tbody>
 			</table>
