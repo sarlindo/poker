@@ -1,2 +1,2 @@
 #requirements/common.txt
-Django==1.6.2
+Django==2.2.24
